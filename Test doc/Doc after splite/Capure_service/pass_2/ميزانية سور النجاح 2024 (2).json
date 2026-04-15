@@ -73,7 +73,7 @@
   },
   "segmentation_confidence": 0.95,
   "issues": [
-    "Notes to the financial statements are referenced in the text but the actual pages/tables are not provided in the input data.",
-    "All tables in the provided data share the same table_id 't1' across different pages."
+    "Duplicate table_id 't1' provided for all tables in the source data.",
+    "Notes to Financial Statements section not found in the provided OCR table list."
   ]
 }

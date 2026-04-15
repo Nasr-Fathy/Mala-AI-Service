@@ -1,6 +1,6 @@
 {
   "company": {
-    "name_en": "Sour Al-Najah Establishment for General Contracting",
+    "name_en": "Sour Al-Najah General Contracting Establishment",
     "name_ar": "مؤسسة سور النجاح للمقاولات العامة",
     "legal_form": "Establishment",
     "registration_number": null
@@ -26,7 +26,7 @@
     "description_ar": "بالريال"
   },
   "audit": {
-    "is_audited": null,
+    "is_audited": false,
     "auditor_name": null,
     "opinion_type": null,
     "audit_date": null

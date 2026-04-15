@@ -12,16 +12,22 @@
       "columns": [
         {
           "index": 2,
-          "fiscal_year": 2024,
+          "fiscal_year": 2021,
           "period_type": "ANNUAL",
-          "header_text": "٢٠٢٤م"
+          "header_text": "2021م"
+        },
+        {
+          "index": 3,
+          "fiscal_year": 2022,
+          "period_type": "ANNUAL",
+          "header_text": "2022م"
         }
       ]
     },
     {
       "statement_type": "INCOME_STATEMENT",
-      "title_en": "Statement of Profit or Loss and Other Comprehensive Income",
-      "title_ar": "قائمة الربح أو الخسارة والدخل الشامل الآخر",
+      "title_en": "Statement of Comprehensive Income",
+      "title_ar": "قائمة الدخل الشامل",
       "start_page": 2,
       "end_page": 2,
       "table_ids": [
@@ -30,22 +36,41 @@
       "columns": [
         {
           "index": 2,
-          "fiscal_year": 2024,
+          "fiscal_year": 2021,
           "period_type": "ANNUAL",
-          "header_text": "٢٠٢٤م"
+          "header_text": "2021م"
+        },
+        {
+          "index": 3,
+          "fiscal_year": 2022,
+          "period_type": "ANNUAL",
+          "header_text": "2022م"
         }
       ]
     },
     {
       "statement_type": "CHANGES_IN_EQUITY",
       "title_en": "Statement of Changes in Equity",
-      "title_ar": "قائمة التغيرات في حقوق الشركاء",
+      "title_ar": "قائمة التغير في حقوق الملكية",
       "start_page": 3,
       "end_page": 3,
       "table_ids": [
         "t1"
       ],
-      "columns": []
+      "columns": [
+        {
+          "index": 1,
+          "fiscal_year": 2021,
+          "period_type": "ANNUAL",
+          "header_text": "2021"
+        },
+        {
+          "index": 2,
+          "fiscal_year": 2022,
+          "period_type": "ANNUAL",
+          "header_text": "2022"
+        }
+      ]
     },
     {
       "statement_type": "CASH_FLOW",
@@ -58,10 +83,16 @@
       ],
       "columns": [
         {
-          "index": 2,
-          "fiscal_year": 2024,
+          "index": 1,
+          "fiscal_year": 2022,
           "period_type": "ANNUAL",
-          "header_text": "٢٠٢٤م"
+          "header_text": "2022م"
+        },
+        {
+          "index": 2,
+          "fiscal_year": 2021,
+          "period_type": "ANNUAL",
+          "header_text": "2021م"
         }
       ]
     }
@@ -73,7 +104,7 @@
   },
   "segmentation_confidence": 0.95,
   "issues": [
-    "Notes to the financial statements are referenced in the text but the actual pages/tables are not provided in the input data.",
-    "All tables in the provided data share the same table_id 't1' across different pages."
+    "Duplicate table_id 't1' provided for all distinct tables in the source data.",
+    "Notes section not identified in the provided OCR table snippet."
   ]
 }

@@ -51,7 +51,12 @@ class FinancialMapperService(BaseMapperService):
     @traceable(run_type="chain", name="pass_1_metadata_extraction")
     async def _run_pass_1(self, ocr_data: dict) -> dict:
         try:
-            content = self._prepare_content(ocr_data)
+            filetr_ocr_data = {
+                    key: value for key, value in ocr_data.items() 
+                    if key not in ["tables", "pages"]
+                }
+            content = self._prepare_content(filetr_ocr_data)
+
             resp = await self._llm.generate(
                 prompt=METADATA_EXTRACTION_PROMPT,
                 content=content,
@@ -88,10 +93,24 @@ class FinancialMapperService(BaseMapperService):
     # ------------------------------------------------------------------
 
     @traceable(run_type="chain", name="pass_2_period_detection")
-    async def _run_pass_2(self, ocr_data: dict, pass_1: dict) -> dict:
+    async def _run_pass_2(self, ocr_data: dict) -> dict:
         try:
-            content = self._prepare_content(ocr_data)
-            enhanced = {"ocr_data": json.loads(content), "metadata": pass_1}
+
+            filetr_ocr_data = {
+            "pages": ocr_data.get("pages", []),
+            "tables": [
+                {
+                    "table_id": t.get("table_id"),
+                    "title": t.get("title"),
+                    "page": t.get("page"),
+                    "headers": t.get("headers"),
+                }
+                for t in ocr_data.get("tables", [])
+            ],
+        }
+
+            content = self._prepare_content(filetr_ocr_data)
+            enhanced = {"ocr_data": json.loads(content)}
             resp = await self._llm.generate(
                 prompt=PERIOD_DETECTION_PROMPT,
                 content=json.dumps(enhanced, ensure_ascii=False, indent=2),

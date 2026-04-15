@@ -6,7 +6,7 @@ Analyze the OCR text and tables provided to identify:
 1. **Company Information**
    - Company name (in both English and Arabic if available)
    - Legal form (e.g., LLC, JSC, Limited Company)
-   - Commercial registration number (if visible)
+   - Commercial registration number of the COMPANY (if visible). WARNING: Do NOT extract the auditor's registration or license number.
 
 2. **Fiscal Period Information**
    - Fiscal year(s) covered in the document
@@ -80,6 +80,7 @@ Return a JSON object with this exact structure:
 }
 
 Important:
+- CRITICAL: Financial statements often contain the Auditor's Commercial Registration (س.ت) or License (ترخيص) at the bottom of the page. Do NOT use this as the company's registration_number. If the company's CR is not explicitly stated near the company name, use null.
 - fiscal_year should be an integer (e.g., 2024, not "2024")
 - period_type should be: ANNUAL, QUARTERLY, SEMI_ANNUAL, MONTHLY
 - is_comparative marks periods that are shown for comparison
