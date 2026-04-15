@@ -12,11 +12,14 @@ Using the OCR text and tables provided, identify:
 
 2. **Page Ranges**
    - Start and end page for each statement
-   - Use original_page_number from the OCR data
+   - Use original_page_number from the OCR data when available. Otherwise use page_number/page.
 
 3. **Column Structure**
-   - Which fiscal periods are in which columns
-   - Typically: current year, previous year (comparative)
+   - Identify fiscal periods ONLY when the table columns themselves represent time periods (e.g. 2025, 2024, Q1, Q2, etc.).
+   - Typically this applies to statements such as Balance Sheet, Income Statement, and Cash Flow Statement.
+   - Do NOT infer fiscal periods from non-period columns such as "البيان", "رأس المال", "إحتياطي نظامي", "ارباح مبقاه", "المجموع".
+   - If a statement (especially CHANGES_IN_EQUITY) is presented as separate full tables for different years rather than year-columns inside one table, then set "columns" to an empty array [] for that statement.
+   - Never force a year-to-column mapping unless the year is explicitly represented as a column header.
 
 4. **Table Associations**
    - Which table_ids belong to which statement
@@ -65,9 +68,12 @@ Statement types must be one of:
 - NOTES
 
 Important:
-- Use original_page_number values from the tables/pages data
+- Use original_page_number values from the tables/pages data when available
 - Include all table_ids that appear within each statement's pages
 - If a statement spans multiple pages, capture the full range
+- If a page contains multiple tables for the same statement, include all of them
+- For CHANGES_IN_EQUITY, be especially careful: fiscal years may be split by separate tables instead of columns
+- If fiscal periods are not represented as actual columns, return "columns": []
 - List any segmentation issues or ambiguities in the "issues" array
 
 Return ONLY valid JSON. Do not include explanations.

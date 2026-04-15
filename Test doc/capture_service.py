@@ -43,7 +43,6 @@ CRITICAL INSTRUCTIONS (MUST FOLLOW):
    - If you cannot infer a name, use an empty string "" instead of `null`.
 
 2. MANDATORY DOCUMENT FIELDS: 
-   - You MUST output "document_type": "قوائم مالية" at the root level of the JSON.
    - "confidence": Provide an estimated OCR confidence score (0.0 - 1.0) for each page.
    - "title" (inside tables): Extract the clear title above each table (e.g., "قائمة المركز المالي").
 

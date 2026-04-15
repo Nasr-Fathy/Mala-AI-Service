@@ -14,14 +14,14 @@
           "index": 2,
           "fiscal_year": 2024,
           "period_type": "ANNUAL",
-          "header_text": "٢٠٢٤م"
+          "header_text": "٢٠٢٤/١٢/١٣ م ريال سعودي"
         }
       ]
     },
     {
-      "statement_type": "INCOME_STATEMENT",
+      "statement_type": "COMPREHENSIVE_INCOME",
       "title_en": "Statement of Profit or Loss and Other Comprehensive Income",
-      "title_ar": "قائمة الربح أو الخسارة والدخل الشامل الآخر",
+      "title_ar": "قائمة الدخل والدخل الشامل",
       "start_page": 2,
       "end_page": 2,
       "table_ids": [
@@ -32,14 +32,14 @@
           "index": 2,
           "fiscal_year": 2024,
           "period_type": "ANNUAL",
-          "header_text": "٢٠٢٤م"
+          "header_text": "٢٠٢٤/١٢/١٣ م ريال سعودي"
         }
       ]
     },
     {
       "statement_type": "CHANGES_IN_EQUITY",
       "title_en": "Statement of Changes in Equity",
-      "title_ar": "قائمة التغيرات في حقوق الشركاء",
+      "title_ar": "قائمة التغير في حقوق الملكية",
       "start_page": 3,
       "end_page": 3,
       "table_ids": [
@@ -58,10 +58,10 @@
       ],
       "columns": [
         {
-          "index": 2,
+          "index": 1,
           "fiscal_year": 2024,
           "period_type": "ANNUAL",
-          "header_text": "٢٠٢٤م"
+          "header_text": "٢٠٢٤/١٢/١٣ م ريال سعودي"
         }
       ]
     }
@@ -73,7 +73,7 @@
   },
   "segmentation_confidence": 0.95,
   "issues": [
-    "Notes to the financial statements are referenced in the text but the actual pages/tables are not provided in the input data.",
-    "All tables in the provided data share the same table_id 't1' across different pages."
+    "The provided OCR data uses the same table_id 't1' for all distinct statement tables.",
+    "No notes section or additional tables were provided in the OCR text snippet."
   ]
 }

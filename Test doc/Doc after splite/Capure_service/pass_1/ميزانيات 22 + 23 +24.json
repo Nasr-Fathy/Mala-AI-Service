@@ -1,0 +1,53 @@
+{
+  "company": {
+    "name_en": "Fawaz Muflih Taisan Al-Enezi Ready-Mix Concrete Factory",
+    "name_ar": "مصنع فواز مفلح طعيسان العنزي للخرسانة الجاهزة",
+    "legal_form": "Factory",
+    "registration_number": "1010426826"
+  },
+  "fiscal_periods": [
+    {
+      "fiscal_year": 2022,
+      "period_type": "ANNUAL",
+      "period_number": 1,
+      "end_date": "2022-12-31",
+      "is_comparative": false
+    },
+    {
+      "fiscal_year": 2021,
+      "period_type": "ANNUAL",
+      "period_number": 1,
+      "end_date": "2021-12-31",
+      "is_comparative": true
+    }
+  ],
+  "currency": {
+    "code": "SAR",
+    "symbol": "ر.س",
+    "name_en": "Saudi Riyal",
+    "name_ar": "ريال سعودي"
+  },
+  "value_scale": {
+    "multiplier": 1,
+    "description_en": "Actual units",
+    "description_ar": "بالوحدات"
+  },
+  "audit": {
+    "is_audited": true,
+    "auditor_name": "Waleed Al-Shabanat Certified Accountants & Auditors",
+    "opinion_type": null,
+    "audit_date": null
+  },
+  "document_info": {
+    "title_en": "Annual Financial Statements",
+    "title_ar": "القوائم المالية السنوية",
+    "detected_language": "ar"
+  },
+  "confidence": {
+    "overall": 0.92,
+    "company_name": 0.98,
+    "fiscal_year": 0.95,
+    "currency": 0.9,
+    "audit_info": 0.85
+  }
+}
