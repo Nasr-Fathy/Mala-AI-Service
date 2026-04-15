@@ -1,0 +1,14 @@
+{
+  "statements": [
+    {
+      "statement_type": "BALANCE_SHEET",
+      "start_page": 1,
+      "end_page": 1,
+      "table_ids": [
+        "t1"
+      ],
+      "columns": []
+    }
+  ],
+  "notes_section": null
+}

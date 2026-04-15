@@ -1,0 +1,529 @@
+{
+  "info": {
+    "name": "Financial AI Service",
+    "description": "Complete API collection for the Financial AI Microservice (FastAPI).\n\nThis collection covers all endpoints:\n- Health & Readiness checks\n- OCR Data Capture (PDF upload)\n- Financial Mapping (multi-pass LLM)\n- Full Pipeline execution (capture + mapping)\n\n## Quick Start\n1. Import this collection and the companion environment file.\n2. Set `base_url` in the environment (default: `http://localhost:8090`).\n3. For file-upload endpoints, select a PDF file in the Body tab.\n4. Send requests.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "ai-service-generator"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8090",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "description": "Service liveness and readiness probes.",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "health"]
+            },
+            "description": "Lightweight liveness probe. Returns immediately without contacting external dependencies.\n\nUse this for Docker HEALTHCHECK, load-balancer probes, or quick smoke tests."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/health",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "health"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"status\": \"ok\",\n  \"version\": \"1.0.0\",\n  \"environment\": \"development\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Readiness Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ready",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ready"]
+            },
+            "description": "Deep readiness probe. Sends a test prompt to Vertex AI Gemini to verify LLM connectivity.\n\nExpect 1-3 seconds latency. A healthy response confirms the GCP credentials and Vertex AI quota are valid."
+          },
+          "response": [
+            {
+              "name": "200 Healthy",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/ready",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "ready"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"status\": \"healthy\",\n  \"llm_status\": \"healthy\",\n  \"model\": \"gemini-1.5-pro-002\",\n  \"details\": {\n    \"status\": \"healthy\",\n    \"model\": \"gemini-1.5-pro-002\",\n    \"location\": \"us-central1\",\n    \"response\": \"OK\"\n  }\n}"
+            },
+            {
+              "name": "200 Unhealthy",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/ready",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "ready"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"status\": \"unhealthy\",\n  \"llm_status\": \"unhealthy\",\n  \"model\": \"\",\n  \"details\": {\n    \"status\": \"unhealthy\",\n    \"error\": \"403 Permission denied on resource project your-gcp-project-id\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Capture (OCR)",
+      "description": "PDF upload and AI-powered text/table extraction via Vertex AI Gemini.\n\nThe file is sent as `multipart/form-data`. Optionally specify which pages to extract.",
+      "item": [
+        {
+          "name": "Capture - All Pages",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "",
+                  "description": "PDF file to process. Select a file from your local filesystem. Max 50 MB."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/capture",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "capture"]
+            },
+            "description": "Upload a PDF and extract text + tables from ALL pages.\n\n**How to use:**\n1. In the Body tab, click \"Select File\" next to the `file` key.\n2. Choose a PDF from your filesystem.\n3. Send the request.\n\nThe response contains structured OCR output with page text, detected tables, language detection, and processing metadata."
+          },
+          "response": [
+            {
+              "name": "200 OK - Capture Result",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "file", "type": "file", "src": "financial_statement.pdf" }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/capture",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "capture"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"raw_text\": \"Statement of Financial Position as at 31 December 2024\\nAssets\\nCurrent Assets\\nCash and cash equivalents  1,500,000  1,200,000\",\n  \"pages\": [\n    {\n      \"page_number\": 1,\n      \"text\": \"Statement of Financial Position as at 31 December 2024\\nAssets\\nCurrent Assets\\nCash and cash equivalents  1,500,000  1,200,000\",\n      \"original_page_number\": 1,\n      \"confidence\": null\n    }\n  ],\n  \"tables\": [\n    {\n      \"page\": 1,\n      \"table_id\": \"t1\",\n      \"headers\": [\"\", \"Note\", \"2024\", \"2023\"],\n      \"rows\": [\n        [\"Cash and cash equivalents\", \"5\", \"1,500,000\", \"1,200,000\"],\n        [\"Trade receivables\", \"6\", \"2,300,000\", \"2,100,000\"],\n        [\"Total current assets\", \"\", \"5,000,000\", \"4,500,000\"]\n      ],\n      \"original_page_number\": 1,\n      \"title\": \"Statement of Financial Position\"\n    }\n  ],\n  \"detected_language\": \"ar-en\",\n  \"page_map\": {\"0\": 1},\n  \"processed_pages\": [1],\n  \"page_count\": 1,\n  \"is_schema_valid\": true,\n  \"schema_version\": \"v1\",\n  \"metadata\": {\n    \"model\": \"gemini-1.5-pro-002\",\n    \"prompt_version\": \"v1.0\",\n    \"processing_time_ms\": 8750,\n    \"attempt\": 1,\n    \"estimated_tokens\": 3200\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Capture - Specific Pages",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "",
+                  "description": "PDF file to process. Select a file from your local filesystem. Max 50 MB."
+                },
+                {
+                  "key": "page_numbers",
+                  "value": "[5, 6, 7, 8]",
+                  "type": "text",
+                  "description": "JSON array of 1-indexed page numbers to extract. Only these pages will be sent to the LLM."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/capture",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "capture"]
+            },
+            "description": "Upload a PDF and extract text + tables from SPECIFIC pages only.\n\nThe `page_numbers` field is a JSON array of 1-indexed page numbers. The service extracts only those pages into a new in-memory PDF before sending to the LLM, reducing token usage and processing time.\n\nThe response maps extracted pages back to their original page numbers via `original_page_number` and `page_map`."
+          },
+          "response": [
+            {
+              "name": "200 OK - Specific Pages",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "file", "type": "file", "src": "annual_report.pdf" },
+                    { "key": "page_numbers", "value": "[5, 6, 7, 8]", "type": "text" }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/capture",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "capture"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"raw_text\": \"Balance Sheet as at 31 December 2024...\",\n  \"pages\": [\n    {\"page_number\": 1, \"text\": \"Balance Sheet...\", \"original_page_number\": 5, \"confidence\": null},\n    {\"page_number\": 2, \"text\": \"Income Statement...\", \"original_page_number\": 6, \"confidence\": null},\n    {\"page_number\": 3, \"text\": \"Cash Flow Statement...\", \"original_page_number\": 7, \"confidence\": null},\n    {\"page_number\": 4, \"text\": \"Changes in Equity...\", \"original_page_number\": 8, \"confidence\": null}\n  ],\n  \"tables\": [],\n  \"detected_language\": \"en\",\n  \"page_map\": {\"0\": 5, \"1\": 6, \"2\": 7, \"3\": 8},\n  \"processed_pages\": [5, 6, 7, 8],\n  \"page_count\": 4,\n  \"is_schema_valid\": true,\n  \"schema_version\": \"v1\",\n  \"metadata\": {\n    \"model\": \"gemini-1.5-pro-002\",\n    \"prompt_version\": \"v1.0\",\n    \"processing_time_ms\": 11200,\n    \"attempt\": 1,\n    \"estimated_tokens\": 4100\n  }\n}"
+            },
+            {
+              "name": "422 - File Too Large",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "file", "type": "file", "src": "huge_report.pdf" }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/capture",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "capture"]
+                }
+              },
+              "status": "Unprocessable Entity",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"error_code\": \"PDF_ERROR\",\n  \"message\": \"File exceeds maximum size of 50 MB\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mapping",
+      "description": "Multi-pass financial mapping over structured OCR data.\n\nThis endpoint accepts a JSON body (not file upload). The OCR data would typically come from a prior `/capture` call.",
+      "item": [
+        {
+          "name": "Financial Mapping - Full",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ocr_data\": {\n    \"raw_text\": \"Statement of Financial Position as at 31 December 2024\\n\\nAssets\\nCurrent Assets\\nCash and cash equivalents    Note 5    1,500,000    1,200,000\\nTrade receivables            Note 6    2,300,000    2,100,000\\nInventories                  Note 7      800,000      750,000\\nTotal current assets                   4,600,000    4,050,000\\n\\nNon-current Assets\\nProperty and equipment       Note 8   10,000,000    9,500,000\\nIntangible assets            Note 9    1,200,000    1,100,000\\nTotal non-current assets              11,200,000   10,600,000\\n\\nTotal Assets                          15,800,000   14,650,000\\n\\nLiabilities and Equity\\nCurrent Liabilities\\nTrade payables              Note 10    1,800,000    1,600,000\\nAccrued expenses            Note 11      500,000      450,000\\nTotal current liabilities              2,300,000    2,050,000\\n\\nEquity\\nShare capital               Note 12    5,000,000    5,000,000\\nRetained earnings                      8,500,000    7,600,000\\nTotal equity                          13,500,000   12,600,000\\n\\nTotal Liabilities and Equity          15,800,000   14,650,000\",\n    \"pages\": [\n      {\n        \"page_number\": 1,\n        \"text\": \"Statement of Financial Position as at 31 December 2024\\n\\nAssets\\nCurrent Assets\\nCash and cash equivalents    Note 5    1,500,000    1,200,000\\nTrade receivables            Note 6    2,300,000    2,100,000\\nInventories                  Note 7      800,000      750,000\\nTotal current assets                   4,600,000    4,050,000\\n\\nNon-current Assets\\nProperty and equipment       Note 8   10,000,000    9,500,000\\nIntangible assets            Note 9    1,200,000    1,100,000\\nTotal non-current assets              11,200,000   10,600,000\\n\\nTotal Assets                          15,800,000   14,650,000\",\n        \"original_page_number\": 5\n      },\n      {\n        \"page_number\": 2,\n        \"text\": \"Liabilities and Equity\\nCurrent Liabilities\\nTrade payables              Note 10    1,800,000    1,600,000\\nAccrued expenses            Note 11      500,000      450,000\\nTotal current liabilities              2,300,000    2,050,000\\n\\nEquity\\nShare capital               Note 12    5,000,000    5,000,000\\nRetained earnings                      8,500,000    7,600,000\\nTotal equity                          13,500,000   12,600,000\\n\\nTotal Liabilities and Equity          15,800,000   14,650,000\",\n        \"original_page_number\": 6\n      }\n    ],\n    \"tables\": [\n      {\n        \"page\": 1,\n        \"table_id\": \"t1\",\n        \"headers\": [\"\", \"Note\", \"2024\", \"2023\"],\n        \"rows\": [\n          [\"Cash and cash equivalents\", \"5\", \"1,500,000\", \"1,200,000\"],\n          [\"Trade receivables\", \"6\", \"2,300,000\", \"2,100,000\"],\n          [\"Inventories\", \"7\", \"800,000\", \"750,000\"],\n          [\"Total current assets\", \"\", \"4,600,000\", \"4,050,000\"],\n          [\"Property and equipment\", \"8\", \"10,000,000\", \"9,500,000\"],\n          [\"Intangible assets\", \"9\", \"1,200,000\", \"1,100,000\"],\n          [\"Total non-current assets\", \"\", \"11,200,000\", \"10,600,000\"],\n          [\"Total Assets\", \"\", \"15,800,000\", \"14,650,000\"]\n        ],\n        \"original_page_number\": 5,\n        \"title\": \"Statement of Financial Position - Assets\"\n      },\n      {\n        \"page\": 2,\n        \"table_id\": \"t2\",\n        \"headers\": [\"\", \"Note\", \"2024\", \"2023\"],\n        \"rows\": [\n          [\"Trade payables\", \"10\", \"1,800,000\", \"1,600,000\"],\n          [\"Accrued expenses\", \"11\", \"500,000\", \"450,000\"],\n          [\"Total current liabilities\", \"\", \"2,300,000\", \"2,050,000\"],\n          [\"Share capital\", \"12\", \"5,000,000\", \"5,000,000\"],\n          [\"Retained earnings\", \"\", \"8,500,000\", \"7,600,000\"],\n          [\"Total equity\", \"\", \"13,500,000\", \"12,600,000\"],\n          [\"Total Liabilities and Equity\", \"\", \"15,800,000\", \"14,650,000\"]\n        ],\n        \"original_page_number\": 6,\n        \"title\": \"Statement of Financial Position - Liabilities & Equity\"\n      }\n    ],\n    \"detected_language\": \"en\"\n  },\n  \"options\": {\n    \"apply_category_mapping\": true,\n    \"parallel_pass3\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/mapping",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "mapping"]
+            },
+            "description": "Run the 4-pass financial mapping pipeline on previously captured OCR data.\n\n**Passes executed:**\n1. Metadata Extraction (company, currency, fiscal periods)\n2. Period Detection & Segmentation (which pages hold which statement)\n3. Statement Structuring (line items, hierarchy, values) -- parallelised per statement\n4. Notes Extraction (note numbers, titles, related items)\n\nAfter Pass 3, keyword-based category mapping is applied to each line item.\n\n**Input:** JSON body matching the `MappingRequest` schema.\n- `ocr_data` -- output from a `/capture` call (raw_text, pages, tables, detected_language)\n- `options.apply_category_mapping` -- whether to run the keyword category matcher (default: true)\n- `options.parallel_pass3` -- whether to parallelise Pass 3 across statements (default: true)"
+          },
+          "response": [
+            {
+              "name": "200 OK - Mapping Result",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/v1/mapping",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "mapping"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"pass_1_output\": {\n    \"company\": {\n      \"name_en\": \"Example Financial Corp\",\n      \"name_ar\": \"شركة المثال المالية\"\n    },\n    \"fiscal_periods\": [\n      {\"fiscal_year\": 2024, \"period_type\": \"ANNUAL\", \"is_comparative\": false},\n      {\"fiscal_year\": 2023, \"period_type\": \"ANNUAL\", \"is_comparative\": true}\n    ],\n    \"currency\": {\"code\": \"SAR\", \"symbol\": \"﷼\"},\n    \"value_scale\": 1,\n    \"audit\": {\"is_audited\": true, \"auditor_name\": \"Deloitte\"}\n  },\n  \"pass_2_output\": {\n    \"statements\": [\n      {\n        \"statement_type\": \"BALANCE_SHEET\",\n        \"start_page\": 5,\n        \"end_page\": 6,\n        \"table_ids\": [\"t1\", \"t2\"],\n        \"columns\": [\n          {\"index\": 2, \"fiscal_year\": 2024},\n          {\"index\": 3, \"fiscal_year\": 2023}\n        ]\n      }\n    ],\n    \"notes_section\": null\n  },\n  \"pass_3_outputs\": {\n    \"statements\": [\n      {\n        \"statement_type\": \"BALANCE_SHEET\",\n        \"line_items\": [\n          {\n            \"name_en\": \"Cash and cash equivalents\",\n            \"name_ar\": null,\n            \"values\": [\n              {\"fiscal_year\": 2024, \"amount\": 1500000},\n              {\"fiscal_year\": 2023, \"amount\": 1200000}\n            ],\n            \"note_reference\": \"5\",\n            \"is_total\": false,\n            \"depth\": 2,\n            \"order\": 0,\n            \"parent\": \"Current Assets\",\n            \"source\": {\"table_id\": \"t1\", \"row_index\": 0, \"page\": 5}\n          },\n          {\n            \"name_en\": \"Total Assets\",\n            \"values\": [\n              {\"fiscal_year\": 2024, \"amount\": 15800000},\n              {\"fiscal_year\": 2023, \"amount\": 14650000}\n            ],\n            \"is_total\": true,\n            \"depth\": 0,\n            \"order\": 7\n          }\n        ]\n      }\n    ]\n  },\n  \"pass_4_output\": {\n    \"notes\": [],\n    \"confidence\": 0.0\n  },\n  \"metadata\": {\n    \"model\": \"gemini-1.5-pro-002\",\n    \"prompt_version\": \"v1.0\",\n    \"processing_time_ms\": 38500,\n    \"total_llm_calls\": 4,\n    \"total_tokens\": 12800\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Financial Mapping - No Category Mapping",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ocr_data\": {\n    \"raw_text\": \"Income Statement for the year ended 31 December 2024\\nRevenue    Note 15    12,000,000    10,500,000\\nCost of revenue           (8,000,000)   (7,200,000)\\nGross profit               4,000,000     3,300,000\\nGeneral and admin expenses  (1,500,000)   (1,300,000)\\nOperating profit            2,500,000     2,000,000\",\n    \"pages\": [\n      {\n        \"page_number\": 1,\n        \"text\": \"Income Statement for the year ended 31 December 2024\\nRevenue    Note 15    12,000,000    10,500,000\\nCost of revenue           (8,000,000)   (7,200,000)\\nGross profit               4,000,000     3,300,000\",\n        \"original_page_number\": 7\n      }\n    ],\n    \"tables\": [\n      {\n        \"page\": 1,\n        \"table_id\": \"t1\",\n        \"headers\": [\"\", \"Note\", \"2024\", \"2023\"],\n        \"rows\": [\n          [\"Revenue\", \"15\", \"12,000,000\", \"10,500,000\"],\n          [\"Cost of revenue\", \"\", \"(8,000,000)\", \"(7,200,000)\"],\n          [\"Gross profit\", \"\", \"4,000,000\", \"3,300,000\"],\n          [\"General and admin expenses\", \"\", \"(1,500,000)\", \"(1,300,000)\"],\n          [\"Operating profit\", \"\", \"2,500,000\", \"2,000,000\"]\n        ],\n        \"original_page_number\": 7,\n        \"title\": \"Statement of Profit or Loss\"\n      }\n    ],\n    \"detected_language\": \"en\"\n  },\n  \"options\": {\n    \"apply_category_mapping\": false,\n    \"parallel_pass3\": true\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/mapping",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "mapping"]
+            },
+            "description": "Same as the full mapping request, but with `apply_category_mapping` set to `false`. Line items will NOT have canonical financial categories assigned.\n\nThis is useful when category assignment is handled externally or when debugging the raw LLM output."
+          },
+          "response": []
+        },
+        {
+          "name": "Financial Mapping - Minimal Payload",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ocr_data\": {\n    \"raw_text\": \"Simple financial text with numbers 1,000,000\",\n    \"pages\": [],\n    \"tables\": [],\n    \"detected_language\": \"en\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/mapping",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "mapping"]
+            },
+            "description": "Minimal valid request body. Uses default options (`apply_category_mapping: true`, `parallel_pass3: true`).\n\nThis demonstrates the minimum required fields. Note that with empty `pages` and `tables`, the LLM will have limited data to work with."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Pipeline",
+      "description": "Full end-to-end pipeline execution.\n\nCombines Capture (OCR) and Mapping into a single request. Upload a PDF, optionally provide configuration, and receive both capture and mapping results.",
+      "item": [
+        {
+          "name": "Execute Pipeline - All Pages",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "",
+                  "description": "PDF file to process through the full pipeline. Select a file from your local filesystem. Max 50 MB."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/pipeline/execute",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pipeline", "execute"]
+            },
+            "description": "Run the full AI pipeline (capture + mapping) on all pages of the uploaded PDF.\n\nNo `config` field is needed -- defaults are used:\n- All pages processed\n- Category mapping applied\n\n**Expect 30-120 seconds** depending on document length."
+          },
+          "response": [
+            {
+              "name": "200 OK - Pipeline Result",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    { "key": "file", "type": "file", "src": "annual_report.pdf" }
+                  ]
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/v1/pipeline/execute",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "v1", "pipeline", "execute"]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "body": "{\n  \"capture_output\": {\n    \"raw_text\": \"Statement of Financial Position...\",\n    \"pages\": [{\"page_number\": 1, \"text\": \"...\", \"original_page_number\": 1}],\n    \"tables\": [{\"page\": 1, \"table_id\": \"t1\", \"headers\": [\"Item\", \"2024\", \"2023\"], \"rows\": [[\"Cash\", \"1500000\", \"1200000\"]]}],\n    \"detected_language\": \"ar-en\",\n    \"page_map\": {\"0\": 1},\n    \"processed_pages\": [1],\n    \"page_count\": 1,\n    \"is_schema_valid\": true,\n    \"schema_version\": \"v1\",\n    \"metadata\": {\"model\": \"gemini-1.5-pro-002\", \"processing_time_ms\": 9500}\n  },\n  \"mapping_output\": {\n    \"pass_1_output\": {\"company\": {\"name_en\": \"Example Corp\"}, \"currency\": {\"code\": \"SAR\"}},\n    \"pass_2_output\": {\"statements\": [{\"statement_type\": \"BALANCE_SHEET\", \"start_page\": 1, \"end_page\": 1}]},\n    \"pass_3_outputs\": {\"statements\": [{\"statement_type\": \"BALANCE_SHEET\", \"line_items\": []}]},\n    \"pass_4_output\": {\"notes\": []},\n    \"metadata\": {\"model\": \"gemini-1.5-pro-002\", \"processing_time_ms\": 42000, \"total_llm_calls\": 5}\n  },\n  \"pipeline_metadata\": {\n    \"steps\": [\n      {\"step\": \"capture\", \"success\": true, \"elapsed_ms\": 9500, \"error\": null},\n      {\"step\": \"mapping\", \"success\": true, \"elapsed_ms\": 42000, \"error\": null}\n    ],\n    \"total_elapsed_ms\": 51500\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Execute Pipeline - With Config",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "",
+                  "description": "PDF file to process. Select a file from your local filesystem. Max 50 MB."
+                },
+                {
+                  "key": "config",
+                  "value": "{\"page_numbers\": [5, 6, 7, 8, 9, 10], \"apply_category_mapping\": true}",
+                  "type": "text",
+                  "description": "JSON string with pipeline configuration. page_numbers: 1-indexed pages to extract. apply_category_mapping: whether to run keyword category matching."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/pipeline/execute",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pipeline", "execute"]
+            },
+            "description": "Run the full AI pipeline with explicit configuration:\n- `page_numbers`: only process pages 5-10 from the PDF\n- `apply_category_mapping`: apply keyword-based category assignment after Pass 3\n\nThe `config` field is a JSON string passed as form-data text (not a file)."
+          },
+          "response": []
+        },
+        {
+          "name": "Execute Pipeline - No Category Mapping",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "",
+                  "description": "PDF file to process. Select a file from your local filesystem. Max 50 MB."
+                },
+                {
+                  "key": "config",
+                  "value": "{\"apply_category_mapping\": false}",
+                  "type": "text",
+                  "description": "Disable category mapping. All pages will be processed."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/pipeline/execute",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "pipeline", "execute"]
+            },
+            "description": "Run the full pipeline on all pages but skip category assignment.\n\nUseful for debugging raw LLM outputs or when categories are assigned externally by the Django backend."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "OpenAPI Docs",
+      "description": "Built-in FastAPI documentation endpoints.",
+      "item": [
+        {
+          "name": "Swagger UI",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/docs",
+              "host": ["{{base_url}}"],
+              "path": ["docs"]
+            },
+            "description": "Interactive Swagger UI. Open this URL in a browser to explore and test all endpoints with auto-generated forms."
+          },
+          "response": []
+        },
+        {
+          "name": "ReDoc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/redoc",
+              "host": ["{{base_url}}"],
+              "path": ["redoc"]
+            },
+            "description": "Alternative API documentation viewer (ReDoc). Open in a browser."
+          },
+          "response": []
+        },
+        {
+          "name": "OpenAPI JSON Schema",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/openapi.json",
+              "host": ["{{base_url}}"],
+              "path": ["openapi.json"]
+            },
+            "description": "Raw OpenAPI 3.x JSON schema. Can be imported into other tools or code generators."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

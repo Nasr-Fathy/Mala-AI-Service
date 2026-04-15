@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Pass 3: Statement Structuring Output",
+  "description": "Schema for validating Pass 3 (Statement) LLM output",
+  "type": "object",
+  "required": ["statement_type", "line_items"],
+  "properties": {
+    "statement_type": {
+      "type": "string",
+      "enum": [
+        "BALANCE_SHEET",
+        "INCOME_STATEMENT",
+        "CASH_FLOW",
+        "CHANGES_IN_EQUITY",
+        "COMPREHENSIVE_INCOME"
+      ]
+    },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name_en", "values", "order"],
+        "properties": {
+          "name_en": {
+            "type": "string",
+            "minLength": 1
+          },
+          "name_ar": {
+            "type": ["string", "null"]
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["fiscal_year", "amount"],
+              "properties": {
+                "fiscal_year": {
+                  "type": "integer",
+                  "minimum": 1900,
+                  "maximum": 2100
+                },
+                "amount": {
+                  "type": ["number", "null"]
+                },
+                "column_index": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          "level": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10
+          },
+          "parent_index": {
+            "type": ["integer", "null"]
+          },
+          "is_total": {
+            "type": "boolean"
+          },
+          "is_subtotal": {
+            "type": "boolean"
+          },
+          "note_number": {
+            "type": ["string", "null"]
+          },
+          "source": {
+            "type": "object",
+            "properties": {
+              "table_id": {
+                "type": "string"
+              },
+              "row_index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "page": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "order": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "totals": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": ["number", "null"]
+        }
+      }
+    },
+    "extraction_notes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  }
+}

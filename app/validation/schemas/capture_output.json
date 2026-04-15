@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CaptureOutputSchema",
+  "description": "Schema for validating Vertex AI OCR output from the Data Capture stage",
+  "type": "object",
+  "required": ["raw_text", "pages"],
+  "properties": {
+    "raw_text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Full extracted text from all pages"
+    },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "description": "List of page objects with extracted text",
+      "items": {
+        "type": "object",
+        "required": ["page_number", "text"],
+        "properties": {
+          "page_number": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number in the extracted sequence (1-indexed)"
+          },
+          "text": {
+            "type": "string",
+            "description": "Extracted text from this page"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "OCR confidence score for this page"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "tables": {
+      "type": "array",
+      "description": "List of extracted tables",
+      "items": {
+        "type": "object",
+        "required": ["page", "table_id"],
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Page number where the table appears"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Unique identifier for the table within the page"
+          },
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Table column headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": ["string", "number", "null"]
+              }
+            },
+            "description": "Table rows as arrays of cell values"
+          },
+          "title": {
+            "type": "string",
+            "description": "Optional table title if detected"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "detected_language": {
+      "type": "string",
+      "enum": ["ar", "en", "ar-en", "unknown"],
+      "description": "Detected primary language of the document"
+    },
+    "document_type": {
+      "type": "string",
+      "description": "Detected document type if identifiable"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata from OCR processing",
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

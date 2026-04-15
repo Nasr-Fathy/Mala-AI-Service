@@ -1,0 +1,39 @@
+# FastAPI & ASGI
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+python-multipart>=0.0.17
+
+# Pydantic & settings
+pydantic>=2.10.0
+pydantic-settings>=2.7.0
+
+# Google Cloud / Vertex AI
+google-cloud-aiplatform>=1.74.0
+google-auth>=2.36.0
+
+# Google AI Studio (Gemini via API key)
+google-generativeai>=0.8.0
+
+# OpenAI
+openai>=1.55.0
+
+# PDF processing
+PyMuPDF>=1.25.0
+
+# Schema validation
+jsonschema>=4.23.0
+
+# Logging
+structlog>=24.4.0
+
+# Tracing / observability
+langsmith>=0.2.0
+
+# HTTP client (for health checks, category mapper remote fetch)
+httpx>=0.28.0
+
+# Testing
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+pytest-cov>=6.0.0
+json-repair==0.59.2

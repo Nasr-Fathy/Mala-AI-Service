@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mala-Ai-Services Structure</title>
+    <style>
+        /* إجبار المتصفح على طباعة الألوان كما هي */
+        html, body {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+        }
+
+        .window {
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 900px;
+            border: 1px solid #333;
+            overflow: hidden;
+        }
+
+        .window-header {
+            background-color: #2d2d2d;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #111;
+        }
+
+        .dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background-color: #ff5f56; }
+        .dot.yellow { background-color: #ffbd2e; }
+        .dot.green { background-color: #27c93f; }
+
+        .title {
+            color: #ccc;
+            font-size: 14px;
+            margin-left: 20px;
+            font-family: monospace;
+        }
+
+        pre {
+            margin: 0;
+            padding: 20px;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d4d4d4;
+            white-space: pre-wrap; /* لمنع خروج النص عن الصفحة في الـ PDF */
+            word-wrap: break-word;
+        }
+
+        .folder { color: #569cd6; font-weight: bold; }
+        .file { color: #ce9178; }
+        .comment { color: #6a9955; font-style: italic; }
+
+        /* إعدادات مخصصة عند التحويل إلى PDF */
+        @media print {
+            @page {
+                margin: 1cm; /* إخفاء الرابط والتاريخ الافتراضي للمتصفح */
+            }
+            body {
+                padding: 0;
+                background-color: #121212 !important;
+            }
+            .window {
+                box-shadow: none !important; /* إزالة الظل لأنه يسبب مشاكل في الطباعة */
+                border: 1px solid #444 !important;
+                max-width: 100% !important;
+                border-radius: 8px !important;
+                page-break-inside: auto;
+            }
+            pre {
+                overflow-x: visible !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="window">
+        <div class="window-header">
+            <div class="dots">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+            </div>
+            <div class="title">Project Structure - Mala-Ai-Services</div>
+        </div>
+        <pre>
+<span class="folder">Mala-Ai-Services/</span>
+  <span class="folder">app/</span>
+    <span class="file">main.py</span>                         <span class="comment"># App factory, lifespan, CORS, error handlers</span>
+    <span class="folder">core/</span>
+      <span class="file">config.py</span>                     <span class="comment"># Settings via pydantic-settings</span>
+      <span class="file">logging.py</span>                    <span class="comment"># structlog setup</span>
+      <span class="file">exceptions.py</span>                 <span class="comment"># Exception hierarchy + FastAPI handlers</span>
+      <span class="file">tracing.py</span>                    <span class="comment"># OpenTelemetry / Tracing configuration</span>
+    <span class="folder">api/</span>
+      <span class="file">deps.py</span>                       <span class="comment"># DI: get services from app.state</span>
+      <span class="folder">v1/</span>
+        <span class="file">router.py</span>                   <span class="comment"># Aggregates endpoint routers</span>
+        <span class="folder">endpoints/</span>
+          <span class="file">health.py</span>                 <span class="comment"># GET /health, GET /ready</span>
+          <span class="file">capture.py</span>                <span class="comment"># POST /capture</span>
+          <span class="file">mapping.py</span>                <span class="comment"># POST /mapping</span>
+          <span class="file">pipeline.py</span>               <span class="comment"># POST /pipeline/execute</span>
+    <span class="folder">schemas/</span>
+      <span class="file">common.py</span>                     <span class="comment"># ErrorResponse, HealthResponse, etc.</span>
+      <span class="file">capture.py</span>                    <span class="comment"># CaptureResponse</span>
+      <span class="file">mapping.py</span>                    <span class="comment"># MappingRequest, MappingResponse</span>
+      <span class="file">pipeline.py</span>                   <span class="comment"># PipelineConfig, PipelineResponse</span>
+    <span class="folder">services/</span>
+      <span class="folder">llm/</span>
+        <span class="file">base.py</span>                     <span class="comment"># BaseLLMClient, GenerationConfig, LLMResponse</span>
+        <span class="file">vertex.py</span>                   <span class="comment"># VertexLLMClient (Gemini)</span>
+        <span class="file">factory.py</span>                  <span class="comment"># create_llm_client()</span>
+        <span class="file">openai_client.py</span>            <span class="comment"># OpenAI API integration client</span>
+        <span class="file">google_studio.py</span>            <span class="comment"># Google AI Studio integration</span>
+      <span class="folder">pdf/</span>
+        <span class="file">layout_service.py</span>           <span class="comment"># PyMuPDF page extraction</span>
+      <span class="folder">capture/</span>
+        <span class="file">capture_service.py</span>          <span class="comment"># OCR orchestration</span>
+      <span class="folder">mapping/</span>
+        <span class="file">base_mapper.py</span>              <span class="comment"># Abstract 4-pass framework</span>
+        <span class="file">financial_mapper.py</span>         <span class="comment"># Concrete financial mapper</span>
+        <span class="file">category_mapper.py</span>          <span class="comment"># Keyword-to-category matching</span>
+        <span class="folder">prompts/</span>
+          <span class="file">metadata.py</span>               <span class="comment"># Pass 1 prompt</span>
+          <span class="file">period.py</span>                 <span class="comment"># Pass 2 prompt</span>
+          <span class="file">statement.py</span>              <span class="comment"># Pass 3 prompt + get_statement_prompt()</span>
+          <span class="file">notes.py</span>                  <span class="comment"># Pass 4 prompt</span>
+    <span class="folder">pipeline/</span>
+      <span class="file">base_step.py</span>                  <span class="comment"># BasePipelineStep, PipelineContext, StepResult</span>
+      <span class="file">registry.py</span>                   <span class="comment"># StepRegistry</span>
+      <span class="file">orchestrator.py</span>               <span class="comment"># PipelineOrchestrator</span>
+      <span class="folder">steps/</span>
+        <span class="file">capture_step.py</span>             <span class="comment"># Wraps CaptureService</span>
+        <span class="file">mapping_step.py</span>             <span class="comment"># Wraps FinancialMapperService</span>
+    <span class="folder">validation/</span>
+      <span class="file">schema_validator.py</span>           <span class="comment"># JSON schema loader + validator</span>
+      <span class="folder">schemas/</span>                      <span class="comment"># JSON schema files (5 files)</span>
+  <span class="file">Dockerfile</span>                        <span class="comment"># Multi-stage build</span>
+  <span class="file">docker-compose.yml</span>                <span class="comment"># Single-service compose</span>
+  <span class="file">requirements.txt</span>                  <span class="comment"># Python dependencies</span>
+  <span class="file">.env</span>                              <span class="comment"># ALL environment variables documented</span>
+  <span class="file">README.md</span>                         <span class="comment"># Quick-start guide</span>
+</pre>
+    </div>
+
+</body>
+</html>

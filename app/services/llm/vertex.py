@@ -1,0 +1,334 @@
+from __future__ import annotations
+
+import asyncio
+import json
+import random
+import time
+from typing import Any
+from app.services.capture.capture_service import CaptureService
+import vertexai
+from google.api_core import exceptions as google_exc
+from vertexai.generative_models import (
+    GenerationConfig as VertexGenConfig,
+    GenerativeModel,
+    Part,
+)
+
+
+from langsmith import traceable
+
+from app.core.config import Settings
+from app.core.exceptions import (
+    LLMError,
+    LLMResponseParseError,
+    LLMRetryExhaustedError,
+)
+from app.core.logging import get_logger
+from app.core.tracing import filter_trace_inputs
+from app.services.llm.base import BaseLLMClient, GenerationConfig, LLMResponse
+from app.services.llm.llm_finalize import finalize_llm_response
+
+logger = get_logger(__name__)
+
+
+class VertexLLMClient(BaseLLMClient):
+    """Async Vertex AI (Gemini) client with exponential-backoff retry."""
+
+    def __init__(self, settings: Settings) -> None:
+        self._settings = settings
+        self._model: GenerativeModel | None = None
+        self._initialized = False
+
+        # stats
+        self.total_calls = 0
+        self.successful_calls = 0
+        self.failed_calls = 0
+        self.total_tokens = 0
+
+    # ------------------------------------------------------------------
+    # Initialisation
+    # ------------------------------------------------------------------
+
+    def _ensure_init(self) -> None:
+        if not self._initialized:
+            vertexai.init(
+                project=self._settings.GOOGLE_CLOUD_PROJECT_ID,
+                location=self._settings.VERTEX_LOCATION,
+            )
+            self._initialized = True
+            logger.info(
+                "vertex_ai_initialized",
+                project=self._settings.GOOGLE_CLOUD_PROJECT_ID,
+                location=self._settings.VERTEX_LOCATION,
+            )
+
+    def _get_model(self) -> GenerativeModel:
+        if self._model is None:
+            self._ensure_init()
+            self._model = GenerativeModel(self._settings.VERTEX_MODEL)
+        return self._model
+
+    def _to_vertex_config(self, cfg: GenerationConfig) -> VertexGenConfig:
+        kw: dict[str, Any] = {
+            "max_output_tokens": cfg.max_output_tokens,
+            "temperature": cfg.temperature,
+        }
+        if cfg.response_json:
+            kw["response_mime_type"] = "application/json"
+        return VertexGenConfig(**kw)
+
+    # ------------------------------------------------------------------
+    # Retry helpers
+    # ------------------------------------------------------------------
+
+    def _delay(self, attempt: int) -> float:
+        s = self._settings
+        base = min(s.LLM_BASE_DELAY * (2 ** attempt), s.LLM_MAX_DELAY)
+        jitter = random.uniform(0, base * s.LLM_JITTER_FACTOR)
+        return base + jitter
+
+    @staticmethod
+    def _parse_json(raw: str) -> dict[str, Any]:
+        text = raw.strip()
+
+        if text.startswith("```json"):
+            text = text[7:]
+        if text.startswith("```"):
+            text = text[3:]
+        if text.endswith("```"):
+            text = text[:-3]
+
+        text = text.strip()
+
+        # لو المودل رجّع object جوه list: [ {...} ]
+        if text.startswith("[") and text.endswith("]"):
+            inner = text[1:-1].strip()
+            if inner.startswith("{") and inner.endswith("}"):
+                text = inner
+
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError as e:
+            start = max(0, e.pos - 1000)
+            end = min(len(text), e.pos + 1000)
+            error_context = text[start:end]
+
+            logger.error(
+                "llm_json_parse_failed",
+                error=str(e),
+                error_line=e.lineno,
+                error_column=e.colno,
+                error_pos=e.pos,
+                error_context=error_context,
+            )
+            raise LLMResponseParseError(f"Invalid JSON from LLM: {e}") from e    # Core generation loop (runs model.generate_content in a thread)
+    # ------------------------------------------------------------------
+
+    async def _call_with_retry(
+        self,
+        content_parts: list[Any],
+        config: GenerationConfig,
+        label: str,
+    ) -> LLMResponse:
+        self.total_calls += 1
+        model = self._get_model()
+        v_config = self._to_vertex_config(config)
+        max_retries = self._settings.LLM_MAX_RETRIES
+        last_exc: BaseException | None = None
+        start = time.time()
+
+        for attempt in range(max_retries):
+            try:
+                logger.info("llm_attempt", label=label, attempt=attempt + 1, max_retries=max_retries)
+
+                loop = asyncio.get_running_loop()
+                response = await loop.run_in_executor(
+                    None,
+                    lambda: model.generate_content(content_parts, generation_config=v_config),
+                )
+
+                if not response.candidates:
+                    raise LLMError("No response candidates from Gemini")
+
+                raw_text = response.candidates[0].content.parts[0].text
+                CaptureService._dump_raw_output("pass_10_metadata", raw_text)
+                logger.info("llm_response", raw_text=raw_text)
+
+                parsed = self._parse_json(raw_text)
+
+                self.successful_calls += 1
+                elapsed = int((time.time() - start) * 1000)
+
+                out = finalize_llm_response(
+                    provider="vertex",
+                    model_name=self._settings.VERTEX_MODEL,
+                    raw_vendor_response=response,
+                    content=parsed,
+                    raw_text=raw_text,
+                    attempt=attempt + 1,
+                    elapsed_ms=elapsed,
+                    label=label,
+                    content_parts=content_parts,
+                )
+                ut = out.usage
+                if ut is not None:
+                    if ut.total_tokens is not None:
+                        self.total_tokens += ut.total_tokens
+                    else:
+                        self.total_tokens += (ut.input_tokens or 0) + (ut.output_tokens or 0)
+
+                logger.info("llm_success", label=label, elapsed_ms=elapsed)
+
+                return out
+
+            except (google_exc.ResourceExhausted, google_exc.DeadlineExceeded, google_exc.ServiceUnavailable) as e:
+                last_exc = e
+                delay = self._delay(attempt)
+                logger.error(
+                    "llm_retryable_error",
+                    label=label,
+                    attempt=attempt + 1,
+                    exc_type=type(e).__name__,
+                    error=str(e),
+                    delay_s=round(delay, 1),
+                    exc_info=True,
+                )
+                await asyncio.sleep(delay)
+
+            except google_exc.InvalidArgument as e:
+                self.failed_calls += 1
+                logger.error(
+                    "llm_invalid_argument",
+                    label=label,
+                    attempt=attempt + 1,
+                    exc_type=type(e).__name__,
+                    error=str(e),
+                    exc_info=True,
+                )
+                raise LLMError(f"Invalid LLM request: {e}") from e
+
+            except LLMResponseParseError as e:
+                last_exc = e
+                logger.error(
+                    "llm_parse_error",
+                    label=label,
+                    attempt=attempt + 1,
+                    exc_type=type(e).__name__,
+                    error=str(e),
+                    raw_text_snippet=raw_text[:500] if 'raw_text' in dir() else "<no response>",
+                    exc_info=True,
+                )
+                if attempt < max_retries - 1:
+                    delay = self._delay(attempt)
+                    await asyncio.sleep(delay)
+                else:
+                    self.failed_calls += 1
+                    raise
+
+            except Exception as e:
+                last_exc = e
+                self.failed_calls += 1
+                logger.error(
+                    "llm_unexpected_error",
+                    label=label,
+                    attempt=attempt + 1,
+                    exc_type=type(e).__name__,
+                    error=str(e),
+                    exc_info=True,
+                )
+                raise
+
+        self.failed_calls += 1
+        elapsed = int((time.time() - start) * 1000)
+        logger.error(
+            "llm_retry_exhausted",
+            label=label,
+            max_retries=max_retries,
+            elapsed_ms=elapsed,
+            last_exc_type=type(last_exc).__name__ if last_exc else None,
+            last_exc_message=str(last_exc) if last_exc else None,
+        )
+        raise LLMRetryExhaustedError(
+            f"LLM call failed after {max_retries} attempts ({elapsed}ms)",
+            last_exception=last_exc,
+        )
+
+    # ------------------------------------------------------------------
+    # Public interface
+    # ------------------------------------------------------------------
+
+    @traceable(run_type="llm", name="llm_generate")
+    async def generate(
+        self,
+        prompt: str,
+        content: str | None = None,
+        *,
+        config: GenerationConfig | None = None,
+        label: str = "",
+    ) -> LLMResponse:
+        cfg = config or GenerationConfig(
+            max_output_tokens=self._settings.VERTEX_MAX_OUTPUT_TOKENS,
+            temperature=self._settings.VERTEX_TEMPERATURE,
+        )
+        parts: list[Any] = []
+        if content:
+            parts.append(f"{prompt}\n\nContent to process:\n{content}")
+        else:
+            parts.append(prompt)
+        return await self._call_with_retry(parts, cfg, label)
+
+    @traceable(run_type="llm", name="llm_generate_pdf", process_inputs=filter_trace_inputs)
+    async def generate_from_pdf(
+        self,
+        prompt: str,
+        pdf_bytes: bytes,
+        *,
+        config: GenerationConfig | None = None,
+        label: str = "",
+    ) -> LLMResponse:
+        cfg = config or GenerationConfig(
+            max_output_tokens=self._settings.VERTEX_MAX_OUTPUT_TOKENS,
+            temperature=self._settings.VERTEX_TEMPERATURE,
+        )
+        doc_part = Part.from_data(pdf_bytes, mime_type="application/pdf")
+        return await self._call_with_retry([prompt, doc_part], cfg, label)
+
+    async def health_check(self) -> dict[str, Any]:
+        try:
+            self._ensure_init()
+            model = self._get_model()
+            loop = asyncio.get_running_loop()
+            response = await loop.run_in_executor(
+                None,
+                lambda: model.generate_content(
+                    "Respond with exactly: OK",
+                    generation_config=VertexGenConfig(max_output_tokens=10),
+                ),
+            )
+            return {
+                "status": "healthy",
+                "model": self._settings.VERTEX_MODEL,
+                "location": self._settings.VERTEX_LOCATION,
+                "response": response.candidates[0].content.parts[0].text.strip(),
+            }
+        except Exception as e:
+            logger.error("vertex_health_check_failed", error=str(e))
+            return {"status": "unhealthy", "error": str(e)}
+
+    def get_model_version(self) -> str:
+        return self._settings.VERTEX_MODEL
+
+    def get_stats(self) -> dict[str, Any]:
+        return {
+            "total_calls": self.total_calls,
+            "successful_calls": self.successful_calls,
+            "failed_calls": self.failed_calls,
+            "total_tokens": self.total_tokens,
+            "success_rate": (self.successful_calls / self.total_calls) if self.total_calls else 0,
+        }
+
+    def reset_stats(self) -> None:
+        self.total_calls = 0
+        self.successful_calls = 0
+        self.failed_calls = 0
+        self.total_tokens = 0

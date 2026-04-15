@@ -1,0 +1,17 @@
+{
+  "statement_type": "BALANCE_SHEET",
+  "line_items": [
+    {
+      "name_en": "Cash",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 100
+        }
+      ],
+      "order": 0
+    }
+  ],
+  "totals": {},
+  "confidence": 0.9
+}
