@@ -1,0 +1,708 @@
+{
+  "statement_type": "CASH_FLOW",
+  "line_items": [
+    {
+      "name_en": "Cash flows from operating activities:",
+      "name_ar": "التدفقات النقدية من الأنشطة التشغيلية:",
+      "values": [],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 0,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 0
+    },
+    {
+      "name_en": "Net profit for the year before Zakat",
+      "name_ar": "صافي أرباح السنة قبل الزكاة الشرعية",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 4307281,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 1455391,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 1,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 1
+    },
+    {
+      "name_en": "Adjustments for",
+      "name_ar": "تسويات لـ",
+      "values": [],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 2,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 2
+    },
+    {
+      "name_en": "Depreciation of property, plant and equipment",
+      "name_ar": "إهلاك الآلات والممتلكات والمعدات",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 232488,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 232488,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 2,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 3,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 3
+    },
+    {
+      "name_en": "End of service provision",
+      "name_ar": "مخصص نهاية الخدمة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 29844,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 21455,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 2,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 4,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 4
+    },
+    {
+      "name_en": "Provision for Zakat",
+      "name_ar": "المكون من مخصص الزكاة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 92815,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 37317,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 2,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 5,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 5
+    },
+    {
+      "name_en": "Adjusted income for the year",
+      "name_ar": "دخل العام المعدل",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 4662428,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 1746651,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": true,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 6,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 6
+    },
+    {
+      "name_en": "Changes in operating assets and liabilities:",
+      "name_ar": "التغير في الموجودات والمطلوبات التشغيلية:",
+      "values": [],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 7,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 7
+    },
+    {
+      "name_en": "Inventory",
+      "name_ar": "المخزون",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -1958500,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": -995622,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 7,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 8,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 8
+    },
+    {
+      "name_en": "Prepaid expenses and other debit balances",
+      "name_ar": "مصروفات مدفوعة مقدماً وأرصدة مدينة أخرى",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -407273,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": -70115,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 7,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 9,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 9
+    },
+    {
+      "name_en": "Accounts receivable",
+      "name_ar": "ذمم مدينة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -453022,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": -215477,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 7,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 10,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 10
+    },
+    {
+      "name_en": "Accounts payable",
+      "name_ar": "ذمم دائنة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -251239,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 468979,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 7,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 11,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 11
+    },
+    {
+      "name_en": "Accrued expenses and other credit balances",
+      "name_ar": "مصروفات مستحقة وأرصدة دائنة أخرى",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 4757,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 18229,
+          "column_index": 2
+        }
+      ],
+      "level": 3,
+      "parent_index": 7,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 12,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 12
+    },
+    {
+      "name_en": "Zakat paid",
+      "name_ar": "مخصص الزكاة المسدد",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -37317,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": null,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 13,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 13
+    },
+    {
+      "name_en": "Net cash generated from (used in) operating activities",
+      "name_ar": "صافي النقد الناتج من (المستخدم في) الأنشطة التشغيلية",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 1559834,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 3298843,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 14,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 14
+    },
+    {
+      "name_en": "Cash flows from investing activities:",
+      "name_ar": "التدفقات النقدية من الأنشطة الاستثمارية:",
+      "values": [],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 15,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 15
+    },
+    {
+      "name_en": "Purchase of property, plant and equipment",
+      "name_ar": "شراء ممتلكات وآلات ومعدات",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": null,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": -1162444,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 15,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 16,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 16
+    },
+    {
+      "name_en": "Proceeds from sale of property, plant and equipment",
+      "name_ar": "متحصلات من بيع آلات ومعدات وممتلكات",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": null,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": null,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 15,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 17,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 17
+    },
+    {
+      "name_en": "Net cash generated from (used in) investing activities",
+      "name_ar": "صافي النقد الناتج من (المستخدم في) الأنشطة الإستثمارية",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": null,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": -1162444,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 18,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 18
+    },
+    {
+      "name_en": "Cash flows from financing activities:",
+      "name_ar": "التدفقات النقدية من الأنشطة التمويلية:",
+      "values": [],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 19,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 19
+    },
+    {
+      "name_en": "Related parties",
+      "name_ar": "الأطراف ذات علاقة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -485689,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 485689,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 19,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 20,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 20
+    },
+    {
+      "name_en": "Dividends",
+      "name_ar": "توزيعات",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -925100,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": null,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 19,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 21,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 21
+    },
+    {
+      "name_en": "Capital",
+      "name_ar": "رأس المال",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": null,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 10000,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 19,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 22,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 22
+    },
+    {
+      "name_en": "Net cash generated from (used in) financing activities",
+      "name_ar": "صافي النقد الناتج من (المستخدم في) الأنشطة التمويلية",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": -1410789,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 495689,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 23,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 23
+    },
+    {
+      "name_en": "Net increase (decrease) in cash and cash equivalents",
+      "name_ar": "صافي الزيادة (النقص) في النقد وما في حكمه",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 149045,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 185890,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 24,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 24
+    },
+    {
+      "name_en": "Cash and cash equivalents at the beginning of the year",
+      "name_ar": "النقد وما في حكمه بداية السنة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 185890,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": null,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 25,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 25
+    },
+    {
+      "name_en": "Cash and cash equivalents at the end of the year",
+      "name_ar": "النقد وما في حكمه نهاية السنة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 334935,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2024,
+          "amount": 185890,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 26,
+        "page": 4
+      },
+      "confidence": 0.98,
+      "order": 26
+    }
+  ],
+  "extraction_notes": [],
+  "confidence": 0.98
+}

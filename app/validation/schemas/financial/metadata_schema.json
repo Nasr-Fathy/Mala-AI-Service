@@ -1,166 +1,166 @@
-{
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Pass 1: Metadata Extraction Output",
-  "description": "Schema for validating Pass 1 (Metadata) LLM output",
-  "type": "object",
-  "required": ["company", "fiscal_periods", "currency"],
-  "properties": {
-    "company": {
-      "type": "object",
-      "required": ["name_en"],
-      "properties": {
-        "name_en": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Company name in English"
-        },
-        "name_ar": {
-          "type": ["string", "null"],
-          "description": "Company name in Arabic"
-        },
-        "legal_form": {
-          "type": ["string", "null"],
-          "description": "Legal form (LLC, JSC, etc.)"
-        },
-        "registration_number": {
-          "type": ["string", "null"],
-          "description": "Commercial registration number"
-        }
-      }
-    },
-    "fiscal_periods": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
+  {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Pass 1: Metadata Extraction Output",
+    "description": "Schema for validating Pass 1 (Metadata) LLM output",
+    "type": "object",
+    "required": ["company", "fiscal_periods", "currency"],
+    "properties": {
+      "company": {
         "type": "object",
-        "required": ["fiscal_year", "period_type"],
+        "required": ["name_en"],
         "properties": {
-          "fiscal_year": {
-            "type": "integer",
-            "minimum": 1900,
-            "maximum": 2100
-          },
-          "period_type": {
+          "name_en": {
             "type": "string",
-            "enum": ["ANNUAL", "QUARTERLY", "SEMI_ANNUAL", "MONTHLY"]
+            "minLength": 1,
+            "description": "Company name in English"
           },
-          "period_number": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 12
-          },
-          "end_date": {
+          "name_ar": {
             "type": ["string", "null"],
-            "format": "date"
+            "description": "Company name in Arabic"
           },
-          "is_comparative": {
-            "type": ["boolean", "null"],
-            "default": false
+          "legal_form": {
+            "type": ["string", "null"],
+            "description": "Legal form (LLC, JSC, etc.)"
+          },
+          "registration_number": {
+            "type": ["string", "null"],
+            "description": "Commercial registration number"
           }
         }
-      }
-    },
-    "currency": {
-      "type": "object",
-      "required": ["code"],
-      "properties": {
-        "code": {
-          "type": "string",
-          "minLength": 3,
-          "maxLength": 3,
-          "description": "ISO currency code"
-        },
-        "symbol": {
-          "type": ["string", "null"]
-        },
-        "name_en": {
-          "type": ["string", "null"]
-        },
-        "name_ar": {
-          "type": ["string", "null"]
+      },
+      "fiscal_periods": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": ["fiscal_year", "period_type"],
+          "properties": {
+            "fiscal_year": {
+              "type": "integer",
+              "minimum": 1900,
+              "maximum": 2100
+            },
+            "period_type": {
+              "type": "string",
+              "enum": ["ANNUAL", "QUARTERLY", "SEMI_ANNUAL", "MONTHLY"]
+            },
+            "period_number": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "end_date": {
+              "type": ["string", "null"],
+              "format": "date"
+            },
+            "is_comparative": {
+              "type": ["boolean", "null"],
+              "default": false
+            }
+          }
         }
-      }
-    },
-    "value_scale": {
-      "type": "object",
-      "properties": {
-        "multiplier": {
-          "type": "integer",
-          "enum": [1, 1000, 1000000, 1000000000],
-          "description": "Scale multiplier"
-        },
-        "description_en": {
-          "type": ["string", "null"]
-        },
-        "description_ar": {
-          "type": ["string", "null"]
+      },
+      "currency": {
+        "type": "object",
+        "required": ["code"],
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 3,
+            "description": "ISO currency code"
+          },
+          "symbol": {
+            "type": ["string", "null"]
+          },
+          "name_en": {
+            "type": ["string", "null"]
+          },
+          "name_ar": {
+            "type": ["string", "null"]
+          }
         }
-      }
-    },
-    "audit": {
-      "type": ["object", "null"],
-      "properties": {
-        "is_audited": {
-          "type": ["boolean", "null"],
-          "default": false
-        },
-        "auditor_name": {
-          "type": ["string", "null"]
-        },
-        "opinion_type": {
-          "type": ["string", "null"],
-          "enum": ["Unqualified", "Qualified", "Adverse", "Disclaimer", null]
-        },
-        "audit_date": {
-          "type": ["string", "null"],
-          "format": "date"
+      },
+      "value_scale": {
+        "type": "object",
+        "properties": {
+          "multiplier": {
+            "type": "integer",
+            "enum": [1, 1000, 1000000, 1000000000],
+            "description": "Scale multiplier"
+          },
+          "description_en": {
+            "type": ["string", "null"]
+          },
+          "description_ar": {
+            "type": ["string", "null"]
+          }
         }
-      }
-    },
-    "document_info": {
-      "type": "object",
-      "properties": {
-        "title_en": {
-          "type": ["string", "null"]
-        },
-        "title_ar": {
-          "type": ["string", "null"]
-        },
-        "detected_language": {
-          "type": "string",
-          "enum": ["ar", "en", "ar-en", "unknown"]
+      },
+      "audit": {
+        "type": ["object", "null"],
+        "properties": {
+          "is_audited": {
+            "type": ["boolean", "null"],
+            "default": false
+          },
+          "auditor_name": {
+            "type": ["string", "null"]
+          },
+          "opinion_type": {
+            "type": ["string", "null"],
+            "enum": ["Unqualified", "Qualified", "Adverse", "Disclaimer", null]
+          },
+          "audit_date": {
+            "type": ["string", "null"],
+            "format": "date"
+          }
         }
-      }
-    },
-    "confidence": {
-      "type": "object",
-      "properties": {
-        "overall": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "company_name": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "fiscal_year": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "currency": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
-        },
-        "audit_info": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1
+      },
+      "document_info": {
+        "type": "object",
+        "properties": {
+          "title_en": {
+            "type": ["string", "null"]
+          },
+          "title_ar": {
+            "type": ["string", "null"]
+          },
+          "detected_language": {
+            "type": "string",
+            "enum": ["ar", "en", "ar-en", "unknown"]
+          }
+        }
+      },
+      "confidence": {
+        "type": "object",
+        "properties": {
+          "overall": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "company_name": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "fiscal_year": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "currency": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "audit_info": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
         }
       }
     }
   }
-}

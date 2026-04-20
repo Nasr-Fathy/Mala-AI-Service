@@ -37,6 +37,13 @@ class Settings(BaseSettings):
     VERTEX_MODEL: str = "gemini-1.5-pro-002"
     VERTEX_MAX_OUTPUT_TOKENS: int = 8192
     VERTEX_TEMPERATURE: float = 0.1
+    VERTEX_RESPONSE_JSON: bool = True
+    VERTEX_USE_VERTEXAI: bool = True
+    VERTEX_THINKING_BUDGET: int = 4096
+    VERTEX_THINKING_BUDGET_MIN: int = 0
+    VERTEX_THINKING_BUDGET_RETRY_MULTIPLIER: float = 0.5
+    VERTEX_THINKING_LEVEL: str = ""
+    VERTEX_HEALTH_CHECK_MAX_TOKENS: int = 10
 
     # --- OpenAI ---
     OPENAI_API_KEY: str = ""

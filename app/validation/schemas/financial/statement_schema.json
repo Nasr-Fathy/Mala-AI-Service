@@ -94,15 +94,6 @@
         }
       }
     },
-    "totals": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "object",
-        "additionalProperties": {
-          "type": ["number", "null"]
-        }
-      }
-    },
     "extraction_notes": {
       "type": "array",
       "items": {

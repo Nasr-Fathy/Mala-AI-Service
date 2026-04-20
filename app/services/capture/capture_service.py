@@ -78,6 +78,7 @@ CRITICAL INSTRUCTIONS (MUST FOLLOW):
    - Use a simple sequential format like "t1", "t2", "t3", etc.
    - Restart numbering on each new page.
 Return ONLY valid JSON. Do not include any explanations, introduction, or markdown formatting like ```json.
+CRITICAL - NO ACCOUNTING HALLUCINATIONS: You are strictly an OCR extractor, NOT an auditor. DO NOT recalculate numbers, DO NOT infer missing rows to make math formulas work, and DO NOT standardize or rewrite accounting terminology. You MUST extract strictly the visible text exactly as it appears in the image. If a row has numbers but no text description, extract the numbers and leave the description as an empty string "". Do NOT invent descriptions.
 """  
     return _CAPTURE_PROMPT
 
@@ -205,3 +206,5 @@ class CaptureService:
                 table["original_page_number"] = page_numbers[page_idx]
             else:
                 table["original_page_number"] = table.get("page", 1)
+            original_page = table["original_page_number"]
+            table["table_id"] = f"p{original_page}_{table.get('table_id', 't1')}"
