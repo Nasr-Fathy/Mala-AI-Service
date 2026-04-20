@@ -2,85 +2,87 @@
   "statement_type": "BALANCE_SHEET",
   "line_items": [
     {
-      "name_en": "Assets",
-      "name_ar": "الموجودات:",
-      "values": [],
-      "level": 0,
+      "name_en": "Cash and cash equivalents",
+      "name_ar": "النقد وما في حكمه",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 39500362,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": null,
+      "note_number": "5",
       "source": {
         "table_id": "t1",
         "row_index": 0,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.99,
       "order": 0
     },
     {
-      "name_en": "Non-current assets",
-      "name_ar": "الموجودات غير المتداولة:",
-      "values": [],
-      "level": 1,
-      "parent_index": 0,
+      "name_en": "Prepaid expenses and other debit balances",
+      "name_ar": "مصروفات مقدمة وأرصدة مدينة أخرى",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 650000,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": null,
+      "note_number": "6",
       "source": {
         "table_id": "t1",
         "row_index": 1,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.99,
       "order": 1
     },
     {
-      "name_en": "Property, plant and equipment - net",
-      "name_ar": "الآلات والممتلكات والمعدات - بالصافي",
+      "name_en": "Total current assets",
+      "name_ar": "إجمالي الموجودات المتداولة",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 697468,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 929956,
-          "column_index": 3
+          "amount": 40150362,
+          "column_index": 2
         }
       ],
-      "level": 2,
-      "parent_index": 1,
-      "is_total": false,
+      "level": 1,
+      "parent_index": null,
+      "is_total": true,
       "is_subtotal": false,
-      "note_number": "4",
+      "note_number": null,
       "source": {
         "table_id": "t1",
         "row_index": 2,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.99,
       "order": 2
     },
     {
-      "name_en": "Total non-current assets",
-      "name_ar": "إجمالي الموجودات غير المتداولة",
+      "name_en": "Non-current assets",
+      "name_ar": "الموجودات غير المتداولة",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 697468,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 929956,
-          "column_index": 3
+          "amount": null,
+          "column_index": 2
         }
       ],
       "level": 1,
-      "parent_index": 0,
-      "is_total": true,
+      "parent_index": null,
+      "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
@@ -88,156 +90,137 @@
         "row_index": 3,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 3
     },
     {
-      "name_en": "Current assets",
-      "name_ar": "الموجودات المتداولة:",
-      "values": [],
-      "level": 1,
-      "parent_index": 0,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
-        "row_index": 4,
-        "page": 1
-      },
-      "confidence": 0.95,
-      "order": 4
-    },
-    {
-      "name_en": "Inventory",
-      "name_ar": "المخزون",
+      "name_en": "Property, plant and equipment, net",
+      "name_ar": "ممتلكات، عدد وأدوات، صافي",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 2954122,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 995622,
-          "column_index": 3
+          "amount": 51949,
+          "column_index": 2
         }
       ],
       "level": 2,
-      "parent_index": 4,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "5",
-      "source": {
-        "table_id": "t1",
-        "row_index": 5,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 5
-    },
-    {
-      "name_en": "Accounts receivable",
-      "name_ar": "ذمم مدينة",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 668499,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 215477,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 4,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "6",
-      "source": {
-        "table_id": "t1",
-        "row_index": 6,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 6
-    },
-    {
-      "name_en": "Cash and cash equivalents",
-      "name_ar": "النقد وما في حكمه",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 334935,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 185890,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 4,
+      "parent_index": 3,
       "is_total": false,
       "is_subtotal": false,
       "note_number": "7",
       "source": {
         "table_id": "t1",
+        "row_index": 4,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 4
+    },
+    {
+      "name_en": "Total non-current assets",
+      "name_ar": "إجمالي الموجودات غير المتداولة",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 51949,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 5,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 5
+    },
+    {
+      "name_en": "Total assets",
+      "name_ar": "إجمالي الموجودات",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 40202311,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 6,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 6
+    },
+    {
+      "name_en": "Liabilities and equity",
+      "name_ar": "المطلوبات و حقوق الملكية",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": null,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
         "row_index": 7,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 7
     },
     {
-      "name_en": "Prepaid expenses and other debit balances",
-      "name_ar": "مصروفات مدفوعة مقدماً وأرصدة مدينة أخرى",
+      "name_en": "Current liabilities",
+      "name_ar": "المطلوبات المتداولة",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 477388,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 70115,
-          "column_index": 3
+          "amount": null,
+          "column_index": 2
         }
       ],
-      "level": 2,
-      "parent_index": 4,
+      "level": 1,
+      "parent_index": 7,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "8",
+      "note_number": null,
       "source": {
         "table_id": "t1",
         "row_index": 8,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 8
     },
     {
-      "name_en": "Total current assets",
-      "name_ar": "إجمالي الموجودات المتداولة",
+      "name_en": "Trade payables",
+      "name_ar": "دائنون تجاريون",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 4434944,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 1467104,
-          "column_index": 3
+          "amount": 200025,
+          "column_index": 2
         }
       ],
-      "level": 1,
-      "parent_index": 0,
-      "is_total": true,
+      "level": 2,
+      "parent_index": 8,
+      "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
@@ -245,44 +228,45 @@
         "row_index": 9,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.99,
       "order": 9
     },
     {
-      "name_en": "Total assets",
-      "name_ar": "مجموع الموجودات",
+      "name_en": "Accrued expenses and other credit balances",
+      "name_ar": "مصروفات مستحقة وأرصدة دائنة أخرى",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 5132412,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 2397060,
-          "column_index": 3
+          "amount": 900450,
+          "column_index": 2
         }
       ],
-      "level": 0,
-      "parent_index": null,
-      "is_total": true,
+      "level": 2,
+      "parent_index": 8,
+      "is_total": false,
       "is_subtotal": false,
-      "note_number": null,
+      "note_number": "8",
       "source": {
         "table_id": "t1",
         "row_index": 10,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.99,
       "order": 10
     },
     {
-      "name_en": "Partners' equity and liabilities",
-      "name_ar": "حقوق الشركاء والإلتزامات",
-      "values": [],
-      "level": 0,
+      "name_en": "Total current liabilities",
+      "name_ar": "إجمالي المطلوبات المتداولة",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 1100475,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
       "parent_index": null,
-      "is_total": false,
+      "is_total": true,
       "is_subtotal": false,
       "note_number": null,
       "source": {
@@ -290,54 +274,44 @@
         "row_index": 11,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.99,
       "order": 11
     },
     {
-      "name_en": "Capital",
-      "name_ar": "رأس المال",
+      "name_en": "Non-current liabilities",
+      "name_ar": "المطلوبات غير المتداولة",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 10000,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 10000,
-          "column_index": 3
+          "amount": null,
+          "column_index": 2
         }
       ],
-      "level": 2,
-      "parent_index": 14,
+      "level": 1,
+      "parent_index": 7,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "9",
+      "note_number": null,
       "source": {
         "table_id": "t1",
         "row_index": 12,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 12
     },
     {
-      "name_en": "Retained earnings (losses)",
-      "name_ar": "الأرباح (الخسائر) المبقاة",
+      "name_en": "Provision for employees' end-of-service benefits",
+      "name_ar": "مخصص مكافأة نهاية الخدمة للموظفين",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 4837572,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 1455391,
-          "column_index": 3
+          "amount": null,
+          "column_index": 2
         }
       ],
       "level": 2,
-      "parent_index": 14,
+      "parent_index": 12,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
@@ -346,26 +320,21 @@
         "row_index": 13,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 13
     },
     {
-      "name_en": "Total partners' equity",
-      "name_ar": "إجمالي حقوق الشركاء",
+      "name_en": "Total non-current liabilities",
+      "name_ar": "اجمالي المطلوبات غير المتداولة",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 4847572,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 1465391,
-          "column_index": 3
+          "amount": null,
+          "column_index": 2
         }
       ],
       "level": 1,
-      "parent_index": 11,
+      "parent_index": null,
       "is_total": true,
       "is_subtotal": false,
       "note_number": null,
@@ -374,280 +343,17 @@
         "row_index": 14,
         "page": 1
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 14
     },
     {
-      "name_en": "Non-current liabilities",
-      "name_ar": "الإلتزامات غير المتداولة:",
-      "values": [],
-      "level": 1,
-      "parent_index": 11,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
-        "row_index": 15,
-        "page": 1
-      },
-      "confidence": 0.95,
-      "order": 15
-    },
-    {
-      "name_en": "Due to related parties",
-      "name_ar": "مستحق الي اطراف ذات علاقة",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": null,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 485689,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 15,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "10",
-      "source": {
-        "table_id": "t1",
-        "row_index": 16,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 16
-    },
-    {
-      "name_en": "Provision for end-of-service benefits",
-      "name_ar": "مخصص مكافأة نهاية الخدمة",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 51299,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 21455,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 15,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "11",
-      "source": {
-        "table_id": "t1",
-        "row_index": 17,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 17
-    },
-    {
-      "name_en": "Total non-current liabilities",
-      "name_ar": "إجمالي الإلتزامات غير المتداولة",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 51299,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 507144,
-          "column_index": 3
-        }
-      ],
-      "level": 1,
-      "parent_index": 11,
-      "is_total": true,
-      "is_subtotal": false,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
-        "row_index": 18,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 18
-    },
-    {
-      "name_en": "Current liabilities",
-      "name_ar": "الإلتزامات المتداولة:",
-      "values": [],
-      "level": 1,
-      "parent_index": 11,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
-        "row_index": 19,
-        "page": 1
-      },
-      "confidence": 0.95,
-      "order": 19
-    },
-    {
-      "name_en": "Trade accounts payable",
-      "name_ar": "الذمم التجارية الدائنة",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 117740,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 368979,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 19,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "12",
-      "source": {
-        "table_id": "t1",
-        "row_index": 20,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 20
-    },
-    {
-      "name_en": "Accrued expenses and other credit balances",
-      "name_ar": "مصروفات مستحقة وأرصدة دائنة أخرى",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 22986,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 18229,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 19,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "13",
-      "source": {
-        "table_id": "t1",
-        "row_index": 21,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 21
-    },
-    {
-      "name_en": "Provision for Zakat",
-      "name_ar": "مخصص الزكاة الشرعية",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 92815,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 37317,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
-      "parent_index": 19,
-      "is_total": false,
-      "is_subtotal": false,
-      "note_number": "14",
-      "source": {
-        "table_id": "t1",
-        "row_index": 22,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 22
-    },
-    {
-      "name_en": "Total current liabilities",
-      "name_ar": "إجمالي الإلتزامات المتداولة",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 233541,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 424525,
-          "column_index": 3
-        }
-      ],
-      "level": 1,
-      "parent_index": 11,
-      "is_total": true,
-      "is_subtotal": false,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
-        "row_index": 23,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 23
-    },
-    {
       "name_en": "Total liabilities",
-      "name_ar": "إجمالي الإلتزامات",
+      "name_ar": "اجمالي المطلوبات",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 284840,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 931669,
-          "column_index": 3
-        }
-      ],
-      "level": 0,
-      "parent_index": 11,
-      "is_total": true,
-      "is_subtotal": false,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
-        "row_index": 24,
-        "page": 1
-      },
-      "confidence": 0.98,
-      "order": 24
-    },
-    {
-      "name_en": "Total partners' equity and liabilities",
-      "name_ar": "إجمالي حقوق الشركاء والإلتزامات",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 5132412,
+          "amount": 1100475,
           "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 2397060,
-          "column_index": 3
         }
       ],
       "level": 0,
@@ -657,13 +363,142 @@
       "note_number": null,
       "source": {
         "table_id": "t1",
-        "row_index": 25,
+        "row_index": 15,
         "page": 1
       },
-      "confidence": 0.98,
-      "order": 25
+      "confidence": 0.99,
+      "order": 15
+    },
+    {
+      "name_en": "Equity",
+      "name_ar": "حقوق الملكية",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": null,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": 7,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 16,
+        "page": 1
+      },
+      "confidence": 0.95,
+      "order": 16
+    },
+    {
+      "name_en": "Share capital",
+      "name_ar": "رأس المال",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 5000,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 16,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": "9",
+      "source": {
+        "table_id": "t1",
+        "row_index": 17,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 17
+    },
+    {
+      "name_en": "Retained earnings / (accumulated losses)",
+      "name_ar": "أرباح مبقاه/ (خسائر متراكمة)",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 39096836,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 16,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 18,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 18
+    },
+    {
+      "name_en": "Total equity",
+      "name_ar": "اجمالي حقوق الملكية",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 39101836,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 19,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 19
+    },
+    {
+      "name_en": "Total liabilities and equity",
+      "name_ar": "إجمالي المطلوبات وحقوق الملكية",
+      "values": [
+        {
+          "fiscal_year": 2024,
+          "amount": 40202311,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 20,
+        "page": 1
+      },
+      "confidence": 0.99,
+      "order": 20
     }
   ],
-  "extraction_notes": [],
-  "confidence": 0.97
+  "totals": {
+    "total_assets": {
+      "2024": 40202311
+    },
+    "total_liabilities": {
+      "2024": 1100475
+    },
+    "total_equity": {
+      "2024": 39101836
+    }
+  },
+  "extraction_notes": [
+    "Non-current liabilities and related provision were listed with null values in the source table.",
+    "Hierarchy levels assigned based on section headers and total labels."
+  ],
+  "confidence": 0.98
 }

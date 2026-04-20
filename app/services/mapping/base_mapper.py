@@ -6,6 +6,7 @@ from abc import ABC, abstractmethod
 from typing import Any
 
 from langsmith import traceable
+import asyncio
 
 from app.core.exceptions import PassExecutionError
 from app.core.logging import get_logger
@@ -66,14 +67,16 @@ class BaseMapperService(ABC):
 
         logger.info("mapping_start")
 
-        pass_1 = await self._run_pass_1(ocr_data)
-        pass_2 = await self._run_pass_2(ocr_data)
+        pass_1, pass_2 = await asyncio.gather(
+            self._run_pass_1(ocr_data),
+            self._run_pass_2(ocr_data),
+        )
         pass_3 = await self._run_pass_3(ocr_data, pass_1, pass_2, pdf_bytes=pdf_bytes)
 
         if apply_categories:
             self._apply_categories(pass_3)
 
-        pass_4 = await self._run_pass_4(ocr_data, pass_2)
+        # pass_4 = await self._run_pass_4(ocr_data, pass_2)
 
         elapsed = int((time.time() - start_time) * 1000)
 
@@ -89,7 +92,7 @@ class BaseMapperService(ABC):
             "pass_1_output": pass_1,
             "pass_2_output": pass_2,
             "pass_3_outputs": pass_3,
-            "pass_4_output": pass_4,
+            # "pass_4_output": pass_4,
             "metadata": {
                 "model": self._llm.get_model_version(),
                 "prompt_version": self.PROMPT_VERSION,
@@ -107,7 +110,7 @@ class BaseMapperService(ABC):
         """Pass 1 -- Metadata Extraction."""
 
     @abstractmethod
-    async def _run_pass_2(self, ocr_data: dict, pass_1: dict) -> dict:
+    async def _run_pass_2(self, ocr_data: dict) -> dict:
         """Pass 2 -- Period Detection & Segmentation."""
 
     @abstractmethod

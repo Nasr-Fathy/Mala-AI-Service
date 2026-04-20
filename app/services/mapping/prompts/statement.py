@@ -50,15 +50,88 @@ Return a JSON object with this exact structure:
             "is_subtotal": false,
             "note_number": "5",
             "source": {{
-                "table_id": "p1_t1",
+                "table_id": "t1",
                 "row_index": 2,
                 "page": 5
             }},
             "confidence": 0.95,
             "order": 1
+        }},
+        {{
+            "name_en": "Trade receivables",
+            "name_ar": "الذمم التجارية المدينة",
+            "values": [
+                {{
+                    "fiscal_year": 2024,
+                    "amount": 2300000,
+                    "column_index": 0
+                }},
+                {{
+                    "fiscal_year": 2023,
+                    "amount": 2100000,
+                    "column_index": 1
+                }}
+            ],
+            "level": 1,
+            "parent_index": null,
+            "is_total": false,
+            "is_subtotal": false,
+            "note_number": "6",
+            "source": {{
+                "table_id": "t1",
+                "row_index": 3,
+                "page": 5
+            }},
+            "confidence": 0.90,
+            "order": 2
+        }},
+        {{
+            "name_en": "Total current assets",
+            "name_ar": "إجمالي الأصول المتداولة",
+            "values": [
+                {{
+                    "fiscal_year": 2024,
+                    "amount": 5000000,
+                    "column_index": 0
+                }},
+                {{
+                    "fiscal_year": 2023,
+                    "amount": 4500000,
+                    "column_index": 1
+                }}
+            ],
+            "level": 0,
+            "parent_index": null,
+            "is_total": true,
+            "is_subtotal": false,
+            "note_number": null,
+            "source": {{
+                "table_id": "t1",
+                "row_index": 10,
+                "page": 5
+            }},
+            "confidence": 0.95,
+            "order": 10
         }}
     ],
-    "extraction_notes": [],
+    "totals": {{
+        "total_assets": {{
+            "2024": 15000000,
+            "2023": 14000000
+        }},
+        "total_liabilities": {{
+            "2024": 8000000,
+            "2023": 7500000
+        }},
+        "total_equity": {{
+            "2024": 7000000,
+            "2023": 6500000
+        }}
+    }},
+    "extraction_notes": [
+        "Some values were partially obscured",
+        "Arabic names inferred from context"
+    ],
     "confidence": 0.88
 }}
 

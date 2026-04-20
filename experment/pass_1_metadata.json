@@ -1,24 +1,17 @@
 {
   "company": {
-    "name_en": "Modern Buildings for Building Materials Co.",
-    "name_ar": "شركة المباني العصرية لمواد البناء",
-    "legal_form": "LLC",
+    "name_en": "Sour Al Najah General Contracting Establishment",
+    "name_ar": "مؤسسة سور النجاح للمقاولات العامة",
+    "legal_form": "Establishment",
     "registration_number": null
   },
   "fiscal_periods": [
-    {
-      "fiscal_year": 2025,
-      "period_type": "ANNUAL",
-      "period_number": 1,
-      "end_date": "2025-12-31",
-      "is_comparative": false
-    },
     {
       "fiscal_year": 2024,
       "period_type": "ANNUAL",
       "period_number": 1,
       "end_date": "2024-12-31",
-      "is_comparative": true
+      "is_comparative": false
     }
   ],
   "currency": {
@@ -30,24 +23,24 @@
   "value_scale": {
     "multiplier": 1,
     "description_en": "Units",
-    "description_ar": "وحدات"
+    "description_ar": "بالوحدات"
   },
   "audit": {
-    "is_audited": true,
+    "is_audited": null,
     "auditor_name": null,
     "opinion_type": null,
     "audit_date": null
   },
   "document_info": {
-    "title_en": "Annual Financial Statements",
-    "title_ar": "القوائم المالية السنوية",
+    "title_en": "Financial Statements for the year ended December 31, 2024",
+    "title_ar": "القوائم المالية للسنة المنتهية في ٣١ ديسمبر ٢٠٢٤م",
     "detected_language": "ar"
   },
   "confidence": {
     "overall": 0.85,
     "company_name": 0.95,
-    "fiscal_year": 0.98,
+    "fiscal_year": 0.95,
     "currency": 0.95,
-    "audit_info": 0.4
+    "audit_info": 0.1
   }
 }
