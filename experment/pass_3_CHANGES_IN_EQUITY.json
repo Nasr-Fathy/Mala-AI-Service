@@ -1,0 +1,139 @@
+{
+  "statement_type": "CHANGES_IN_EQUITY",
+  "line_items": [
+    {
+      "name_en": "Balance at January 01, 2025",
+      "name_ar": "الرصيد في 01 يناير 2025 م",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 10000,
+          "column_index": 0
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": 1455391,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": 1465391,
+          "column_index": 2
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 0,
+        "page": 3
+      },
+      "confidence": 0.98,
+      "order": 0
+    },
+    {
+      "name_en": "Drawings",
+      "name_ar": "مسحوبات",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": null,
+          "column_index": 0
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": -925100,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": -925100,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 1,
+        "page": 3
+      },
+      "confidence": 0.98,
+      "order": 1
+    },
+    {
+      "name_en": "Net income for the year",
+      "name_ar": "صافي دخل السنة",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": null,
+          "column_index": 0
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": 4307281,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": 4307281,
+          "column_index": 2
+        }
+      ],
+      "level": 2,
+      "parent_index": 0,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 2,
+        "page": 3
+      },
+      "confidence": 0.98,
+      "order": 2
+    },
+    {
+      "name_en": "Balance as at December 31, 2025",
+      "name_ar": "الرصيد كما في 31 ديسمبر 2025 م",
+      "values": [
+        {
+          "fiscal_year": 2025,
+          "amount": 10000,
+          "column_index": 0
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": 4837572,
+          "column_index": 1
+        },
+        {
+          "fiscal_year": 2025,
+          "amount": 4847572,
+          "column_index": 2
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": true,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "t1",
+        "row_index": 3,
+        "page": 3
+      },
+      "confidence": 0.98,
+      "order": 3
+    }
+  ],
+  "extraction_notes": [],
+  "confidence": 0.98
+}

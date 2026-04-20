@@ -34,10 +34,15 @@ class MappingStep(BasePipelineStep):
     async def execute(self, context: PipelineContext) -> StepResult:
         capture_output: dict = context.get("capture_output")
         apply_cats = context.get("apply_category_mapping", True)
+        pdf_bytes: bytes | None = context.get("pdf_bytes")
 
         start = time.time()
         try:
-            output = await self._service.process(capture_output, apply_categories=apply_cats)
+            output = await self._service.process(
+                capture_output,
+                pdf_bytes=pdf_bytes,
+                apply_categories=apply_cats,
+            )
             context.set("mapping_output", output)
             return StepResult(success=True, output=output, elapsed_ms=int((time.time() - start) * 1000))
         except Exception as e:

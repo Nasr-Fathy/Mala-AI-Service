@@ -44,12 +44,19 @@ class BaseMapperService(ABC):
     # ------------------------------------------------------------------
 
     @traceable(run_type="chain", name="financial_mapping")
-    async def process(self, ocr_data: dict[str, Any], *, apply_categories: bool = True) -> dict[str, Any]:
+    async def process(
+        self,
+        ocr_data: dict[str, Any],
+        *,
+        pdf_bytes: bytes | None = None,
+        apply_categories: bool = True,
+    ) -> dict[str, Any]:
         """
         Run the full 4-pass mapping pipeline.
 
         Args:
             ocr_data: Dict with ``raw_text``, ``pages``, ``tables``, ``detected_language``.
+            pdf_bytes: Optional original PDF bytes for vision-enhanced passes.
             apply_categories: Whether to run keyword-based category assignment after Pass 3.
 
         Returns:
@@ -60,8 +67,8 @@ class BaseMapperService(ABC):
         logger.info("mapping_start")
 
         pass_1 = await self._run_pass_1(ocr_data)
-        pass_2 = await self._run_pass_2(ocr_data, pass_1)
-        pass_3 = await self._run_pass_3(ocr_data, pass_2)
+        pass_2 = await self._run_pass_2(ocr_data)
+        pass_3 = await self._run_pass_3(ocr_data, pass_1, pass_2, pdf_bytes=pdf_bytes)
 
         if apply_categories:
             self._apply_categories(pass_3)
@@ -104,7 +111,14 @@ class BaseMapperService(ABC):
         """Pass 2 -- Period Detection & Segmentation."""
 
     @abstractmethod
-    async def _run_pass_3(self, ocr_data: dict, pass_2: dict) -> dict:
+    async def _run_pass_3(
+        self,
+        ocr_data: dict,
+        pass_1: dict,
+        pass_2: dict,
+        *,
+        pdf_bytes: bytes | None = None,
+    ) -> dict:
         """Pass 3 -- Statement Structuring (parallelisable)."""
 
     @abstractmethod

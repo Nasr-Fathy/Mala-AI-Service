@@ -5,15 +5,22 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from app.services.llm.token_usage import TokenUsage
+from typing import Literal
 
 
+# @dataclass(frozen=True)
+# class GenerationConfig:
+#     """Vendor-agnostic generation configuration."""
+#     max_output_tokens: int = 8192
+#     temperature: float = 0.1
+#     response_json: bool = True
 @dataclass(frozen=True)
 class GenerationConfig:
-    """Vendor-agnostic generation configuration."""
-    max_output_tokens: int = 8192
+    max_output_tokens: int = 32000
     temperature: float = 0.1
     response_json: bool = True
-
+    thinking_budget: int | None = None
+    thinking_level: Literal["MINIMAL", "LOW", "MEDIUM", "HIGH"] | None = None
 
 @dataclass
 class LLMResponse:

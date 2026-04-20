@@ -23,7 +23,9 @@ Analyze the OCR text and tables provided to identify:
    - Auditor name (if present)
    - Audit opinion type (Unqualified, Qualified, etc.)
    - Audit date
-
+Validation-critical rule:
+- company.name_en must be a non-empty string.
+- Never return null for company.name_en.
 Return a JSON object with this exact structure:
 {
     "company": {

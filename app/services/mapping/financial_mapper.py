@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -9,6 +10,7 @@ from langsmith import traceable
 
 from app.core.exceptions import PassExecutionError
 from app.core.logging import get_logger
+from app.services.llm.base import BaseLLMClient, GenerationConfig
 from app.services.mapping.base_mapper import BaseMapperService
 from app.services.mapping.prompts import (
     METADATA_EXTRACTION_PROMPT,
@@ -16,6 +18,7 @@ from app.services.mapping.prompts import (
     PERIOD_DETECTION_PROMPT,
     get_statement_prompt,
 )
+from app.services.pdf.layout_service import LayoutService
 
 logger = get_logger(__name__)
 
@@ -93,7 +96,7 @@ class FinancialMapperService(BaseMapperService):
     # ------------------------------------------------------------------
 
     @traceable(run_type="chain", name="pass_2_period_detection")
-    async def _run_pass_2(self, ocr_data: dict) -> dict:
+    async def _run_pass_2(self, ocr_data: dict) -> dict:  # noqa: ARG002 – pass_1 reserved for future use
         try:
 
             filetr_ocr_data = {
@@ -101,6 +104,7 @@ class FinancialMapperService(BaseMapperService):
             "tables": [
                 {
                     "table_id": t.get("table_id"),
+                    "original_page_number": t.get("original_page_number"),
                     "title": t.get("title"),
                     "page": t.get("page"),
                     "headers": t.get("headers"),
@@ -138,14 +142,29 @@ class FinancialMapperService(BaseMapperService):
     # ------------------------------------------------------------------
 
     @traceable(run_type="chain", name="pass_3_statement_structuring")
-    async def _run_pass_3(self, ocr_data: dict, pass_2: dict) -> dict:
+    async def _run_pass_3(
+        self,
+        ocr_data: dict,
+        pass_1: dict,
+        pass_2: dict,
+        *,
+        pdf_bytes: bytes | None = None,
+    ) -> dict:
         statements = pass_2.get("statements", [])
+        print(statements)
         non_notes = [s for s in statements if s.get("statement_type") != "NOTES"]
 
         if not non_notes:
             return {"statements": []}
 
-        tasks = [self._process_statement(ocr_data, stmt) for stmt in non_notes]
+        # valid_note_numbers = self._collect_note_numbers(ocr_data)
+
+        tasks = [
+            self._process_statement(
+                ocr_data, stmt, pass_1,  pdf_bytes=pdf_bytes
+            )
+            for stmt in non_notes
+        ]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
         output_stmts: list[dict] = []
@@ -165,38 +184,89 @@ class FinancialMapperService(BaseMapperService):
                     pass_name=f"Statement Structuring ({stype})",
                     cause=result,
                 ) from result
-            result["statement_info"] = stmt_info
-            output_stmts.append(result)
+            output_stmts.append({
+            "statement": result,
+            "statement_info": stmt_info
+        })
 
         return {"statements": output_stmts}
 
     @traceable(run_type="chain", name="pass_3_single_statement")
-    async def _process_statement(self, ocr_data: dict, stmt_info: dict) -> dict:
+    async def _process_statement(
+        self,
+        ocr_data: dict,
+        stmt_info: dict,
+        pass_1: dict,
+        # valid_note_numbers: list[str],
+        *,
+        pdf_bytes: bytes | None = None,
+    ) -> dict:
         stype = stmt_info.get("statement_type", "UNKNOWN")
         start = stmt_info.get("start_page", 1)
         end = stmt_info.get("end_page", start)
 
-        tables = self._tables_for_pages(ocr_data, start, end, stmt_info.get("table_ids", []))
-        text = self._text_for_pages(ocr_data, start, end)
+        raw_tables = self._tables_for_pages(
+            ocr_data, start, end, stmt_info.get("table_ids", [])
+        )
+        tables = [self._trim_table(t) for t in raw_tables]
+        pages_text = self._pages_text_for_range(ocr_data, start, end, stype)
 
         content = json.dumps(
             {
                 "statement_type": stype,
-                "text": text,
-                "tables": tables,
+                "statement_title": {
+                    "en": stmt_info.get("title_en"),
+                    "ar": stmt_info.get("title_ar"),
+                },
+                "page_range": {"start": start, "end": end},
+                "currency": pass_1.get("currency", {}).get("code"),
+                "value_scale": pass_1.get("value_scale", {}).get("multiplier", 1),
                 "columns": stmt_info.get("columns", []),
+                "tables": tables,
+                "pages_text": pages_text,
             },
             ensure_ascii=False,
             indent=2,
         )
 
         prompt = get_statement_prompt(stype)
+        config = GenerationConfig(max_output_tokens=32000,temperature=0.0, response_json=True, thinking_level="MEDIUM")
 
-        resp = await self._llm.generate(
-            prompt=prompt,
-            content=content,
-            label=f"pass3_{stype}",
+        needs_image = self._needs_image(
+            stype, stmt_info.get("columns", []), ocr_data, start, end, raw_tables
         )
+
+        if needs_image and pdf_bytes:
+            page_numbers = list(range(start, end + 1))
+            combined_prompt = f"{prompt}\n\nStructured data from OCR:\n{content}"
+            try:
+                sliced_pdf = LayoutService.extract_pages_to_bytes(pdf_bytes, page_numbers)
+                resp = await self._llm.generate_from_pdf(
+                    prompt=combined_prompt,
+                    pdf_bytes=sliced_pdf,
+                    config=config,
+                    label=f"pass3_{stype}",
+                )
+            except Exception as exc:
+                logger.warning(
+                    "pass_3_image_fallback_failed, using text-only",
+                    statement_type=stype,
+                    error=str(exc),
+                )
+                resp = await self._llm.generate(
+                    prompt=prompt,
+                    content=content,
+                    config=config,
+                    label=f"pass3_{stype}",
+                )
+        else:
+            resp = await self._llm.generate(
+                prompt=prompt,
+                content=content,
+                config=config,
+                label=f"pass3_{stype}",
+            )
+
         result = resp.content
         self._dump_raw_output(f"pass_3_{stype}", result)
         self._validate_pass(result, "statement", 3)
@@ -255,18 +325,137 @@ class FinancialMapperService(BaseMapperService):
         ocr_data: dict, start: int, end: int, extra_ids: list[str] | None = None
     ) -> list[dict]:
         extra = set(extra_ids or [])
-        return [
-            t
-            for t in ocr_data.get("tables", [])
-            if start <= t.get("original_page_number", t.get("page", 0)) <= end
-            or t.get("table_id", "") in extra
+
+        def page_num(t: dict) -> int:
+            return t.get("original_page_number", t.get("page", 0))
+
+        tables = [
+            t for t in ocr_data.get("tables", [])
+            if start <= page_num(t) <= end
         ]
 
+        if extra:
+            tables = [
+                t for t in tables
+                if t.get("table_id", "") in extra
+            ]
+            return tables
+
+
+    # ------------------------------------------------------------------
+    # Pass 3 helper methods
+    # ------------------------------------------------------------------
+
+    _BOILERPLATE_PATTERNS: list[re.Pattern[str]] = [
+        re.compile(r"P\.O\.Box\s+\d+", re.IGNORECASE),
+        re.compile(r"Tel\.\s*:", re.IGNORECASE),
+        re.compile(r"Fax\s*:", re.IGNORECASE),
+        re.compile(r"ص\.\s*ب\s*\d+", re.IGNORECASE),
+        re.compile(r"هاتف\s*:", re.IGNORECASE),
+        re.compile(r"فاكس\s*:", re.IGNORECASE),
+        re.compile(r"الرمز البريدي\s*\d+", re.IGNORECASE),
+        re.compile(r"Riyadh\s+\d+", re.IGNORECASE),
+        re.compile(r"محاسبون ومراجعون قانونيون", re.IGNORECASE),
+        re.compile(r"ترخيص رقم\s*\d+", re.IGNORECASE),
+        re.compile(r"المجموعة السعودية للمحاسبة والمراجعة", re.IGNORECASE),
+        re.compile(r"شركة المجموعة السعودية للمحاسبة", re.IGNORECASE),
+    ]
+
+    @classmethod
+    def _strip_boilerplate(cls, text: str) -> str:
+        lines = text.split("\n")
+        filtered = [
+            line for line in lines
+            if not any(pat.search(line) for pat in cls._BOILERPLATE_PATTERNS)
+        ]
+        return "\n".join(filtered).strip()
+
     @staticmethod
-    def _text_for_pages(ocr_data: dict, start: int, end: int) -> str:
+    def _trim_table(table: dict) -> dict:
+        return {
+            "table_id": table.get("table_id"),
+            "page": table.get("original_page_number", table.get("page")),
+            "title": table.get("title"),
+            "headers": table.get("headers"),
+            "rows": table.get("rows"),
+        }
+
+    @classmethod
+    def _pages_text_for_range(
+        cls, ocr_data: dict, start: int, end: int, statement_type: str
+    ) -> list[dict]:
+        tabular_only = {"BALANCE_SHEET", "INCOME_STATEMENT"}
+        if statement_type in tabular_only:
+            return []
+
         pages = ocr_data.get("pages", [])
         relevant = [
             p for p in pages
             if start <= p.get("original_page_number", p.get("page_number", 0)) <= end
         ]
-        return "\n\n".join(p.get("text", "") for p in relevant)
+        out: list[dict] = []
+        for p in relevant:
+            pn = p.get("original_page_number", p.get("page_number", 0))
+            text = cls._strip_boilerplate(p.get("text", ""))
+            if text:
+                out.append({"page": pn, "text": text})
+        return out
+
+    @staticmethod
+    def _collect_note_numbers(ocr_data: dict) -> list[str]:
+        seen: set[str] = set()
+        for table in ocr_data.get("tables", []):
+            headers = table.get("headers", [])
+            note_col_idx: int | None = None
+            for idx, h in enumerate(headers):
+                if h and ("إيضاح" in h or "note" in h.lower()):
+                    note_col_idx = idx
+                    break
+            if note_col_idx is None:
+                for idx, h in enumerate(headers):
+                    if h and h.strip() == "إيضاح":
+                        note_col_idx = idx
+                        break
+            if note_col_idx is None:
+                continue
+            for row in table.get("rows", []):
+                if note_col_idx < len(row):
+                    val = row[note_col_idx]
+                    if val is not None and str(val).strip():
+                        seen.add(str(val).strip())
+        return sorted(seen, key=lambda x: int(x) if x.isdigit() else x)
+
+    _IMAGE_NEEDED_TYPES = {"CHANGES_IN_EQUITY", "CASH_FLOW"}
+    _LOW_CONFIDENCE_THRESHOLD = 0.85
+    _LARGE_TABLE_ROW_THRESHOLD = 30
+
+    @classmethod
+    def _needs_image(
+        cls,
+        statement_type: str,
+        columns: list[dict],
+        ocr_data: dict,
+        start: int,
+        end: int,
+        tables: list[dict],
+    ) -> bool:
+        if statement_type in cls._IMAGE_NEEDED_TYPES:
+            return True
+        if not columns:
+            return True
+        pages = ocr_data.get("pages", [])
+        relevant_pages = [
+            p for p in pages
+            if start <= p.get("original_page_number", p.get("page_number", 0)) <= end
+        ]
+        if relevant_pages:
+            min_confidence = min(
+                p.get("confidence", 1.0) for p in relevant_pages
+            )
+            if min_confidence < cls._LOW_CONFIDENCE_THRESHOLD:
+                return True
+        for t in tables:
+            rows = t.get("rows", [])
+            if len(rows) > cls._LARGE_TABLE_ROW_THRESHOLD:
+                return True
+        return False
