@@ -7,55 +7,43 @@
       "start_page": 1,
       "end_page": 1,
       "table_ids": [
-        "t1"
+        "p1_t1"
       ],
       "columns": [
         {
           "index": 2,
-          "fiscal_year": 2025,
-          "period_type": "ANNUAL",
-          "header_text": "كما في 31 ديسمبر 2025 م"
-        },
-        {
-          "index": 3,
           "fiscal_year": 2024,
           "period_type": "ANNUAL",
-          "header_text": "كما في 31 ديسمبر 2024 م"
+          "header_text": "٢٠٢٤م"
         }
       ]
     },
     {
       "statement_type": "INCOME_STATEMENT",
       "title_en": "Statement of Profit or Loss and Other Comprehensive Income",
-      "title_ar": "قائمة الدخل والدخل الشامل الآخر",
+      "title_ar": "قائمة الربح أو الخسارة والدخل الشامل الآخر",
       "start_page": 2,
       "end_page": 2,
       "table_ids": [
-        "t1"
+        "p2_t1"
       ],
       "columns": [
         {
           "index": 2,
-          "fiscal_year": 2025,
-          "period_type": "ANNUAL",
-          "header_text": "كما في 31 ديسمبر 2025 م"
-        },
-        {
-          "index": 3,
           "fiscal_year": 2024,
           "period_type": "ANNUAL",
-          "header_text": "كما في 31 ديسمبر 2024 م"
+          "header_text": "٢٠٢٤م"
         }
       ]
     },
     {
       "statement_type": "CHANGES_IN_EQUITY",
       "title_en": "Statement of Changes in Equity",
-      "title_ar": "قائمة التغير في حقوق الملكية",
+      "title_ar": "قائمة التغيرات في حقوق الشركاء",
       "start_page": 3,
       "end_page": 3,
       "table_ids": [
-        "t1"
+        "p3_t1"
       ],
       "columns": []
     },
@@ -66,20 +54,14 @@
       "start_page": 4,
       "end_page": 4,
       "table_ids": [
-        "t1"
+        "p4_t1"
       ],
       "columns": [
-        {
-          "index": 1,
-          "fiscal_year": 2025,
-          "period_type": "ANNUAL",
-          "header_text": "كما في 31 ديسمبر 2025 م"
-        },
         {
           "index": 2,
           "fiscal_year": 2024,
           "period_type": "ANNUAL",
-          "header_text": "كما في 31 ديسمبر 2024 م"
+          "header_text": "٢٠٢٤م"
         }
       ]
     }
@@ -91,7 +73,7 @@
   },
   "segmentation_confidence": 0.95,
   "issues": [
-    "All tables in the provided OCR data share the same table_id 't1'.",
-    "No explicit notes section or tables were identified in the provided snippet."
+    "Comparative year columns (e.g., 2023) are missing in the provided table headers.",
+    "Notes section range and tables were not provided in the OCR data."
   ]
 }

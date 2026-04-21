@@ -3,16 +3,16 @@
   "line_items": [
     {
       "name_en": "Revenues",
-      "name_ar": "الإيرادات",
+      "name_ar": "الايرادات",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 56928730,
+          "fiscal_year": 2021,
+          "amount": 2535327,
           "column_index": 2
         },
         {
-          "fiscal_year": 2024,
-          "amount": 49362973,
+          "fiscal_year": 2022,
+          "amount": 4251212,
           "column_index": 3
         }
       ],
@@ -20,9 +20,9 @@
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "14",
+      "note_number": "11",
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 0,
         "page": 2
       },
@@ -30,55 +30,44 @@
       "order": 0
     },
     {
+      "name_en": "Less:",
+      "name_ar": "ناقصاً :",
+      "values": [],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "p2_t1",
+        "row_index": 1,
+        "page": 2
+      },
+      "confidence": 0.9,
+      "order": 1
+    },
+    {
       "name_en": "Cost of revenues",
-      "name_ar": "(-) تكلفة الايرادات",
+      "name_ar": "تكلفة الايرادات",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": -45616930,
+          "fiscal_year": 2021,
+          "amount": -911737,
           "column_index": 2
         },
         {
-          "fiscal_year": 2024,
-          "amount": -40907073,
+          "fiscal_year": 2022,
+          "amount": -1802800,
           "column_index": 3
         }
       ],
       "level": 2,
-      "parent_index": null,
+      "parent_index": 1,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "15",
+      "note_number": "12",
       "source": {
-        "table_id": "t1",
-        "row_index": 1,
-        "page": 2
-      },
-      "confidence": 0.95,
-      "order": 1
-    },
-    {
-      "name_en": "Gross profit from operations",
-      "name_ar": "إجمالي ربح النشاط",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": 11311800,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": 8455900,
-          "column_index": 3
-        }
-      ],
-      "level": 1,
-      "parent_index": null,
-      "is_total": false,
-      "is_subtotal": true,
-      "note_number": null,
-      "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 2,
         "page": 2
       },
@@ -86,27 +75,27 @@
       "order": 2
     },
     {
-      "name_en": "General and administrative expenses",
-      "name_ar": "(-) مصاريف إدارية وعمومية",
+      "name_en": "Operating expenses",
+      "name_ar": "مصاريف التشغيل",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": -1928389,
+          "fiscal_year": 2021,
+          "amount": -119826,
           "column_index": 2
         },
         {
-          "fiscal_year": 2024,
-          "amount": -1518190,
+          "fiscal_year": 2022,
+          "amount": -177942,
           "column_index": 3
         }
       ],
       "level": 2,
-      "parent_index": null,
+      "parent_index": 1,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "16",
+      "note_number": "13",
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 3,
         "page": 2
       },
@@ -114,17 +103,17 @@
       "order": 3
     },
     {
-      "name_en": "Net profit before Zakat",
-      "name_ar": "صافي الربح قبل الزكاة",
+      "name_en": "Gross profit",
+      "name_ar": "مجمل الربح",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 9383411,
+          "fiscal_year": 2021,
+          "amount": 1503764,
           "column_index": 2
         },
         {
-          "fiscal_year": 2024,
-          "amount": 6937710,
+          "fiscal_year": 2022,
+          "amount": 2270470,
           "column_index": 3
         }
       ],
@@ -134,7 +123,7 @@
       "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 4,
         "page": 2
       },
@@ -142,55 +131,44 @@
       "order": 4
     },
     {
-      "name_en": "Zakat and income tax",
-      "name_ar": "(-) الزكاة الشرعية وضريبة الدخل",
-      "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": -1065603,
-          "column_index": 2
-        },
-        {
-          "fiscal_year": 2024,
-          "amount": -847301,
-          "column_index": 3
-        }
-      ],
-      "level": 2,
+      "name_en": "Deduct:",
+      "name_ar": "يخصم :",
+      "values": [],
+      "level": 1,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 5,
         "page": 2
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 5
     },
     {
-      "name_en": "Net profit for the period after Zakat and income tax",
-      "name_ar": "صافي الربح الفترة بعد الزكاة وضريبة الدخل",
+      "name_en": "General and administrative expenses",
+      "name_ar": "مصاريف عمومية وإدارية",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 8317808,
+          "fiscal_year": 2021,
+          "amount": -108590,
           "column_index": 2
         },
         {
-          "fiscal_year": 2024,
-          "amount": 6090409,
+          "fiscal_year": 2022,
+          "amount": -173530,
           "column_index": 3
         }
       ],
-      "level": 0,
-      "parent_index": null,
-      "is_total": true,
+      "level": 2,
+      "parent_index": 5,
+      "is_total": false,
       "is_subtotal": false,
-      "note_number": null,
+      "note_number": "14",
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 6,
         "page": 2
       },
@@ -198,17 +176,146 @@
       "order": 6
     },
     {
-      "name_en": "Total comprehensive income",
-      "name_ar": "إجمالي الربح والدخل الشامل بالصافي",
+      "name_en": "Depreciation",
+      "name_ar": "الاستهلاكات",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 8317808,
+          "fiscal_year": 2021,
+          "amount": -587395,
           "column_index": 2
         },
         {
-          "fiscal_year": 2024,
-          "amount": 6090409,
+          "fiscal_year": 2022,
+          "amount": -978476,
+          "column_index": 3
+        }
+      ],
+      "level": 2,
+      "parent_index": 5,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": "6",
+      "source": {
+        "table_id": "p2_t1",
+        "row_index": 7,
+        "page": 2
+      },
+      "confidence": 0.95,
+      "order": 7
+    },
+    {
+      "name_en": "Add:",
+      "name_ar": "يضاف :",
+      "values": [],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "p2_t1",
+        "row_index": 8,
+        "page": 2
+      },
+      "confidence": 0.9,
+      "order": 8
+    },
+    {
+      "name_en": "Other income",
+      "name_ar": "ايرادات متنوعة",
+      "values": [
+        {
+          "fiscal_year": 2021,
+          "amount": null,
+          "column_index": 2
+        },
+        {
+          "fiscal_year": 2022,
+          "amount": null,
+          "column_index": 3
+        }
+      ],
+      "level": 2,
+      "parent_index": 8,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": null,
+      "source": {
+        "table_id": "p2_t1",
+        "row_index": 9,
+        "page": 2
+      },
+      "confidence": 0.9,
+      "order": 9
+    },
+    {
+      "name_en": "Net comprehensive income (loss) for the year before Zakat",
+      "name_ar": "صافى الدخل الشامل (خسارة) العام قبل الزكاة",
+      "values": [
+        {
+          "fiscal_year": 2021,
+          "amount": 807779,
+          "column_index": 2
+        },
+        {
+          "fiscal_year": 2022,
+          "amount": 1118464,
+          "column_index": 3
+        }
+      ],
+      "level": 0,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": true,
+      "note_number": null,
+      "source": {
+        "table_id": "p2_t1",
+        "row_index": 10,
+        "page": 2
+      },
+      "confidence": 0.95,
+      "order": 10
+    },
+    {
+      "name_en": "(-) Zakat provision",
+      "name_ar": "(-) مخصص الزكاة",
+      "values": [
+        {
+          "fiscal_year": 2021,
+          "amount": -3781,
+          "column_index": 2
+        },
+        {
+          "fiscal_year": 2022,
+          "amount": -8180,
+          "column_index": 3
+        }
+      ],
+      "level": 1,
+      "parent_index": null,
+      "is_total": false,
+      "is_subtotal": false,
+      "note_number": "9",
+      "source": {
+        "table_id": "p2_t1",
+        "row_index": 11,
+        "page": 2
+      },
+      "confidence": 0.95,
+      "order": 11
+    },
+    {
+      "name_en": "Net comprehensive income (loss) for the year after Zakat",
+      "name_ar": "صافى الدخل الشامل (خسارة) العام بعد الزكاة",
+      "values": [
+        {
+          "fiscal_year": 2021,
+          "amount": 803998,
+          "column_index": 2
+        },
+        {
+          "fiscal_year": 2022,
+          "amount": 1110284,
           "column_index": 3
         }
       ],
@@ -218,14 +325,28 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
-        "row_index": 7,
+        "table_id": "p2_t1",
+        "row_index": 12,
         "page": 2
       },
       "confidence": 0.95,
-      "order": 7
+      "order": 12
     }
   ],
-  "extraction_notes": [],
-  "confidence": 0.95
+  "totals": {
+    "net_income_before_zakat": {
+      "2021": 807779,
+      "2022": 1118464
+    },
+    "net_income_after_zakat": {
+      "2021": 803998,
+      "2022": 1110284
+    }
+  },
+  "extraction_notes": [
+    "Negative values in parentheses were converted to negative numbers.",
+    "Dashes (---) were treated as null values.",
+    "Hierarchy levels assigned based on standard accounting statement structure and explicit 'Less/Add' headers."
+  ],
+  "confidence": 0.94
 }

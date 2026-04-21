@@ -2,111 +2,91 @@
   "statement_type": "INCOME_STATEMENT",
   "line_items": [
     {
-      "name_en": "Revenues",
-      "name_ar": "الإيرادات",
+      "name_en": "Revenue, net",
+      "name_ar": "الإیرادات، صافي",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 33076510,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 6753220,
-          "column_index": 3
+          "amount": 42781870,
+          "column_index": 0
         }
       ],
-      "level": 1,
+      "level": 2,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "15",
+      "note_number": "10",
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 0,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 0
     },
     {
-      "name_en": "Cost of Revenues",
-      "name_ar": "تكلفة الإيرادات",
+      "name_en": "Cost of revenue",
+      "name_ar": "تكلفة الإیرادات",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": -27977381,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": -4614475,
-          "column_index": 3
+          "amount": -3257687,
+          "column_index": 0
         }
       ],
-      "level": 1,
+      "level": 2,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "16",
+      "note_number": "11",
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 1,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 1
     },
     {
-      "name_en": "Gross Profit",
-      "name_ar": "مجمل الدخل",
+      "name_en": "Gross profit",
+      "name_ar": "مجمل الربح",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 5099129,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 2138745,
-          "column_index": 3
+          "amount": 39524183,
+          "column_index": 0
         }
       ],
-      "level": 0,
+      "level": 1,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 2,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 2
     },
     {
-      "name_en": "Less: Other expenses and charges",
-      "name_ar": "يخصم: المصروفات والأعباء الأخرى",
+      "name_en": "General and administrative expenses",
+      "name_ar": "مصاریف عمومیة وإداریة",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": null,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": null,
-          "column_index": 3
+          "amount": -437347,
+          "column_index": 0
         }
       ],
-      "level": 1,
+      "level": 2,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": null,
+      "note_number": "12",
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 3,
         "page": 2
       },
@@ -114,74 +94,59 @@
       "order": 3
     },
     {
-      "name_en": "General and administrative expenses",
-      "name_ar": "المصروفات العمومية والادارية",
+      "name_en": "Net profit (loss) before Zakat",
+      "name_ar": "صافي الربح (الخسارة ) قبل الزكاة الشرعية",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": -699033,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": -646037,
-          "column_index": 3
+          "amount": 39096836,
+          "column_index": 0
         }
       ],
-      "level": 2,
-      "parent_index": 3,
+      "level": 1,
+      "parent_index": null,
       "is_total": false,
-      "is_subtotal": false,
-      "note_number": "17",
+      "is_subtotal": true,
+      "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 4,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 4
     },
     {
-      "name_en": "Income for the year from main activity",
-      "name_ar": "دخل السنة من النشاط الرئيسي",
+      "name_en": "Net profit (loss) after Zakat",
+      "name_ar": "صافي الربح (الخسارة ) بعد الزكاة الشرعية",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 4400096,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 1492708,
-          "column_index": 3
+          "amount": 39096836,
+          "column_index": 0
         }
       ],
-      "level": 0,
+      "level": 1,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 5,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 5
     },
     {
-      "name_en": "Other revenues",
-      "name_ar": "إيرادات اخري",
+      "name_en": "Other comprehensive income:",
+      "name_ar": "الدخل الشامل الآخر:",
       "values": [
-        {
-          "fiscal_year": 2025,
-          "amount": null,
-          "column_index": 2
-        },
         {
           "fiscal_year": 2024,
           "amount": null,
-          "column_index": 3
+          "column_index": 0
         }
       ],
       "level": 1,
@@ -190,82 +155,67 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 6,
         "page": 2
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 6
     },
     {
-      "name_en": "Net profit before Zakat",
-      "name_ar": "صافي الربح قبل الزكاة الشرعية",
+      "name_en": "Items that will not be reclassified to profit or loss",
+      "name_ar": "بنود لا يمكن تصنيفها ضمن قائمة الارباح والخسائر",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 4400096,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 1492708,
-          "column_index": 3
+          "amount": null,
+          "column_index": 0
         }
       ],
-      "level": 0,
-      "parent_index": null,
+      "level": 2,
+      "parent_index": 6,
       "is_total": false,
-      "is_subtotal": true,
+      "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 7,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.9,
       "order": 7
     },
     {
-      "name_en": "Less: Zakat expense",
-      "name_ar": "يخصم: مصروف الزكاة الشرعية",
+      "name_en": "Other comprehensive income",
+      "name_ar": "الدخل الشامل الاخر",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": -92815,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": -37317,
-          "column_index": 3
+          "amount": 0,
+          "column_index": 0
         }
       ],
-      "level": 1,
-      "parent_index": null,
+      "level": 2,
+      "parent_index": 6,
       "is_total": false,
       "is_subtotal": false,
-      "note_number": "14",
+      "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 8,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.9,
       "order": 8
     },
     {
-      "name_en": "Income and other comprehensive income",
-      "name_ar": "الدخل والدخل الشامل الآخر",
+      "name_en": "Total comprehensive income (loss)",
+      "name_ar": "صافي الربح (الخسارة ) والدخل الشامل الآخر",
       "values": [
         {
-          "fiscal_year": 2025,
-          "amount": 4307281,
-          "column_index": 2
-        },
-        {
           "fiscal_year": 2024,
-          "amount": 1455391,
-          "column_index": 3
+          "amount": 39096836,
+          "column_index": 0
         }
       ],
       "level": 0,
@@ -274,14 +224,27 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p2_t1",
         "row_index": 9,
         "page": 2
       },
-      "confidence": 0.98,
+      "confidence": 0.95,
       "order": 9
     }
   ],
-  "extraction_notes": [],
-  "confidence": 0.97
+  "totals": {
+    "net_profit_loss": {
+      "2024": 39096836
+    },
+    "total_comprehensive_income": {
+      "2024": 39096836
+    }
+  },
+  "extraction_notes": [
+    "Arabic names extracted directly from table rows.",
+    "English names translated from Arabic context.",
+    "The value '-' was interpreted as 0 for Other comprehensive income.",
+    "Hierarchy levels assigned based on standard financial statement structure and row labels."
+  ],
+  "confidence": 0.94
 }

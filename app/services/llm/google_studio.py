@@ -114,9 +114,15 @@ class GoogleStudioLLMClient(BaseLLMClient):
         content_parts: list[Any],
         config: GenerationConfig,
         label: str,
+        model_name: str | None = None,
     ) -> LLMResponse:
         self.total_calls += 1
-        model = self._get_model()
+        resolved_model = model_name or self._settings.GOOGLE_AI_MODEL
+        if model_name:
+            self._ensure_init()
+            model = genai.GenerativeModel(resolved_model)
+        else:
+            model = self._get_model()
         gen_config = genai.GenerationConfig(**self._to_gen_config(config))
         max_retries = self._settings.LLM_MAX_RETRIES
         last_exc: BaseException | None = None
@@ -145,7 +151,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
 
                 out = finalize_llm_response(
                     provider="google_genai",
-                    model_name=self._settings.GOOGLE_AI_MODEL,
+                    model_name=resolved_model,
                     raw_vendor_response=response,
                     content=parsed,
                     raw_text=raw_text,
@@ -250,6 +256,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         cfg = config or GenerationConfig(
             max_output_tokens=self._settings.GOOGLE_AI_MAX_OUTPUT_TOKENS,
@@ -261,7 +268,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
             parts.append(f"{prompt}\n\nContent to process:\n{content}")
         else:
             parts.append(prompt)
-        return await self._call_with_retry(parts, cfg, label)
+        return await self._call_with_retry(parts, cfg, label, model_name=model_name)
 
     @traceable(run_type="llm", name="llm_generate_pdf", process_inputs=filter_trace_inputs)
     async def generate_from_pdf(
@@ -272,6 +279,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         cfg = config or GenerationConfig(
             max_output_tokens=self._settings.GOOGLE_AI_MAX_OUTPUT_TOKENS,
@@ -279,7 +287,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
         )
 
         pdf_part = {"mime_type": "application/pdf", "data": pdf_bytes}
-        return await self._call_with_retry([prompt, pdf_part], cfg, label)
+        return await self._call_with_retry([prompt, pdf_part], cfg, label, model_name=model_name)
 
     async def health_check(self) -> dict[str, Any]:
         try:

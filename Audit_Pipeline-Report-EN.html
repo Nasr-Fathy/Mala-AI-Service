@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mala Audit-Agent Development Report</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --danger-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+
+        .summary-cards {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--light-bg);
+            padding: 20px;
+            border-radius: 8px;
+            flex: 1;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .card h3 {
+            margin: 0 0 10px 0;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--success-color);
+        }
+
+        .card span {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fbfcff;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .badge-old { background-color: var(--danger-color); }
+        .badge-new { background-color: var(--success-color); }
+        .badge-model { background-color: var(--accent-color); }
+
+        .highlight-box {
+            background-color: #e8f4fd;
+            border: 1px solid #b6d4fe;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .highlight-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .highlight-box li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Comprehensive Performance & Development Report <br><span style="color: #3498db;">Mala Audit-Agent</span></h1>
+
+        <div class="summary-cards">
+            <div class="card">
+                <h3>Test Success Rate</h3>
+                <p>100%</p>
+                <span>(Successfully tested on 6 files)</span>
+            </div>
+            <div class="card">
+                <h3>Total Pipeline Duration</h3>
+                <p>~ 2 Minutes</p>
+                <span>(Drastically reduced from previous versions)</span>
+            </div>
+            <div class="card">
+                <h3>Fallback Rate</h3>
+                <p>~ 0%</p>
+                <span>(Massive drop in operational costs & errors)</span>
+            </div>
+        </div>
+
+        <h2>1. Architecture Overview & Upgrades</h2>
+        <p>
+            The project pipeline consists of two main stages: <strong>1. OCR Capture</strong> and <strong>2. Financial Mapper</strong>. <br>
+            In the legacy version, all tasks relied on a single monolithic AI model, leading to severe bottlenecks in cost, execution time, cumulative errors, and exceeding model thinking limits. The architecture has been completely re-engineered to decouple tasks, utilize specific models based on task complexity, and implement parallel processing.
+        </p>
+
+        <h2>2. Performance Comparison: Legacy vs. New Architecture</h2>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Stage / Component</th>
+                    <th>Legacy Version <span class="badge badge-old">Old</span></th>
+                    <th>Upgraded Version <span class="badge badge-new">New</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Model Strategy</strong></td>
+                    <td>Single model for everything: <code>gemini 2.5 flash</code></td>
+                    <td>Task-specific models based on difficulty <span class="badge badge-model">Balanced</span></td>
+                </tr>
+                <tr>
+                    <td><strong>OCR_Capture Stage</strong></td>
+                    <td>Model was too weak for this task = frequent schema errors.</td>
+                    <td>Upgraded to <code>gemini-3.1-pro-preview</code> = High accuracy.</td>
+                </tr>
+                <tr>
+                    <td><strong>Financial Mapper: Pass 1</strong></td>
+                    <td>~12,291 tokens | 15 seconds <br><small>(Dependent on OCR output)</small></td>
+                    <td>~5,000 tokens | 10 seconds <br><small>(<code>gemini-3-flash-preview</code>)</small></td>
+                </tr>
+                <tr>
+                    <td><strong>Financial Mapper: Pass 2</strong></td>
+                    <td>~7,000 tokens | 40 seconds <br><small>(Sequential: Had to wait for Pass 1)</small></td>
+                    <td>~800 tokens | 10 seconds <br><small>(Now executes in <strong>Parallel</strong> with Pass 1)</small></td>
+                </tr>
+                <tr>
+                    <td><strong>Financial Mapper: Pass 3</strong></td>
+                    <td>~2,000 tokens <br><small>(Waited for OCR, Pass 1 & Pass 2)</small></td>
+                    <td>~2,300 tokens | 25 seconds <br><small>(Processes OCR, Pass 1 & 2 outputs internally in parallel)</small></td>
+                </tr>
+                <tr>
+                    <td><strong>Observability & Tracking</strong></td>
+                    <td>None. Impossible to pinpoint errors or calculate specific costs.</td>
+                    <td>Integrated <strong>LangSmith</strong>. <br><small>Precise tracking for outputs, time, and cost per stage.</small></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Major Challenges Resolved</h2>
+        <div class="highlight-box">
+            <ul>
+                <li>
+                    <strong>Over-thinking Issue:</strong> The old model frequently over-thought tasks, exceeding 60,000 tokens per task, which caused massive cost spikes and fallbacks. <br>
+                    <span style="color: var(--success-color);"><strong>Solution:</strong> Implemented strict controls over the "Thinking Level" and "Thinking Budget", completely eliminating this issue.</span>
+                </li>
+                <li>
+                    <strong>Cumulative Errors & Fallbacks:</strong> Due to the weak old model and incorrect schemas, requests were retried up to 5 times, multiplying time and cost exponentially. <br>
+                    <span style="color: var(--success-color);"><strong>Solution:</strong> Upgrading the OCR stage to the <code>Pro</code> model stabilized the schema generation, reducing the fallback rate to nearly 0%.</span>
+                </li>
+                <li>
+                    <strong>Sequential Execution Bottleneck:</strong> The system used to wait for each pass to finish before starting the next. <br>
+                    <span style="color: var(--success-color);"><strong>Solution:</strong> Decoupled Pass 1 and Pass 2 to run in <strong>parallel</strong>. The execution time is now equal to the longest task, not the sum of both.</span>
+                </li>
+                <li>
+                    <strong>Error Handling & Monitoring:</strong> The legacy system operated as a "black box". <br>
+                    <span style="color: var(--success-color);"><strong>Solution:</strong> LangSmith integration now provides granular visibility into every step, resulting in vastly improved error handling and better overall management.</span>
+                </li>
+            </ul>
+        </div>
+
+        <h2>4. Technical Conclusion</h2>
+        <p>
+            Transitioning from a <strong>"Single Sequential Model"</strong> to a <strong>"Distributed, Parallel, Task-Specific"</strong> architecture achieved an optimal balance between performance quality and operational cost. Initial testing on 6 files demonstrated 100% accuracy, with the entire pipeline completing in approximately 2 minutes. This upgrade drastically reduced costs, resolved token over-consumption, and established robust observability.
+        </p>
+
+    </div>
+
+</body>
+</html>

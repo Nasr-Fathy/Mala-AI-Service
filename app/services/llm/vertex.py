@@ -203,11 +203,12 @@ class VertexLLMClient(BaseLLMClient):
         contents: list[Any],
         config: GenerationConfig,
         label: str,
+        model_name: str | None = None,
     ) -> LLMResponse:
         self.total_calls += 1
         client = self._get_client()
         genai_config = self._to_genai_config(config)
-        model_name = self._settings.VERTEX_MODEL
+        model = model_name or self._settings.VERTEX_MODEL
         max_retries = self._settings.LLM_MAX_RETRIES
         last_exc: BaseException | None = None
         start = time.time()
@@ -217,7 +218,7 @@ class VertexLLMClient(BaseLLMClient):
                 logger.info("llm_attempt", label=label, attempt=attempt + 1, max_retries=max_retries)
 
                 response = await client.aio.models.generate_content(
-                    model=model_name,
+                    model=model,
                     contents=contents,
                     config=genai_config,
                 )
@@ -236,7 +237,7 @@ class VertexLLMClient(BaseLLMClient):
 
                 out = finalize_llm_response(
                     provider="vertex",
-                    model_name=model_name,
+                    model_name=model,
                     raw_vendor_response=response,
                     content=parsed,
                     raw_text=raw_text,
@@ -356,6 +357,7 @@ class VertexLLMClient(BaseLLMClient):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         cfg = config or GenerationConfig(
             max_output_tokens=self._settings.VERTEX_MAX_OUTPUT_TOKENS,
@@ -367,7 +369,7 @@ class VertexLLMClient(BaseLLMClient):
             parts.append(f"{prompt}\n\nContent to process:\n{content}")
         else:
             parts.append(prompt)
-        return await self._call_with_retry(parts, cfg, label)
+        return await self._call_with_retry(parts, cfg, label, model_name=model_name)
 
     @traceable(run_type="llm", name="llm_generate_pdf", process_inputs=filter_trace_inputs)
     async def generate_from_pdf(
@@ -378,6 +380,7 @@ class VertexLLMClient(BaseLLMClient):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         cfg = config or GenerationConfig(
             max_output_tokens=self._settings.VERTEX_MAX_OUTPUT_TOKENS,
@@ -385,7 +388,7 @@ class VertexLLMClient(BaseLLMClient):
             response_json=self._settings.VERTEX_RESPONSE_JSON,
         )
         doc_part = types.Part.from_bytes(data=pdf_bytes, mime_type="application/pdf")
-        return await self._call_with_retry([prompt, doc_part], cfg, label)
+        return await self._call_with_retry([prompt, doc_part], cfg, label, model_name=model_name)
 
     async def health_check(self) -> dict[str, Any]:
         try:

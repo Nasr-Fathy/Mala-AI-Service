@@ -61,6 +61,7 @@ class BaseLLMClient(ABC):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         """Send a text prompt (with optional supporting content) and return parsed JSON."""
 
@@ -73,6 +74,7 @@ class BaseLLMClient(ABC):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         """Send a multimodal prompt with an inline PDF and return parsed JSON."""
 

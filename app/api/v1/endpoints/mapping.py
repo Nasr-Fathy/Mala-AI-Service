@@ -43,6 +43,6 @@ async def run_mapping(
         pass_1_output=result["pass_1_output"],
         pass_2_output=result["pass_2_output"],
         pass_3_outputs=result["pass_3_outputs"],
-        pass_4_output=result["pass_4_output"],
+        # pass_4_output=result["pass_4_output"],
         metadata=result.get("metadata", {}),
     )

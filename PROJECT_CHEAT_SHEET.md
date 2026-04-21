@@ -101,6 +101,7 @@ After Pass 3, a **keyword-based category mapper** assigns categories to line ite
 ### Local
 
 ```bash
+gcloud auth application-default login
 cd ai-service
 cp .env.example .env          # edit GOOGLE_CLOUD_PROJECT_ID
 pip install -r requirements.txt
@@ -112,7 +113,9 @@ uvicorn app.main:app --host 0.0.0.0 --port 8090 --reload
 ```bash
 cd ai-service
 cp .env.example .env          # edit GOOGLE_CLOUD_PROJECT_ID
+docker network create mala_network
 docker compose up --build -d
+docker logs -f --tail 200 mala_ai_service
 ```
 
 ### Base URL

@@ -10,7 +10,7 @@ from langsmith import traceable
 from app.core.exceptions import SchemaValidationError
 from app.core.logging import get_logger
 from app.core.tracing import filter_trace_inputs
-from app.services.llm.base import BaseLLMClient
+from app.services.llm.base import BaseLLMClient,GenerationConfig
 from app.services.pdf.layout_service import LayoutService
 from app.validation.schema_validator import SchemaValidator
 
@@ -130,6 +130,7 @@ class CaptureService:
             prompt=_get_capture_prompt(),
             pdf_bytes=extracted_pdf,
             label="capture_ocr",
+            task_type="capture",
         )
 
         ocr_output = response.content
