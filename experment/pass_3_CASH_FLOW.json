@@ -11,7 +11,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 0,
         "page": 4
       },
@@ -19,8 +19,8 @@
       "order": 0
     },
     {
-      "name_en": "Net profit (loss) for the year before Zakat",
-      "name_ar": "صافي ربح/ (خسارة) السنة قبل الزكاة",
+      "name_en": "Net profit / (loss) for the year before Zakat",
+      "name_ar": "صافي ربح / (خسارة ) السنة قبل الزكاة",
       "values": [
         {
           "fiscal_year": 2024,
@@ -34,11 +34,11 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 1,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 1
     },
     {
@@ -51,7 +51,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 2,
         "page": 4
       },
@@ -74,7 +74,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 3,
         "page": 4
       },
@@ -82,8 +82,8 @@
       "order": 3
     },
     {
-      "name_en": "Provision for end-of-service benefits (component)",
-      "name_ar": "مخصص مكافأة نهاية الخدمة (مكون)",
+      "name_en": "Provision for end of service benefits (component)",
+      "name_ar": "مخصص مكافأة نهایة الخدمة (مكون)",
       "values": [
         {
           "fiscal_year": 2024,
@@ -97,7 +97,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 4,
         "page": 4
       },
@@ -105,7 +105,7 @@
       "order": 4
     },
     {
-      "name_en": "Subtotal before changes in working capital",
+      "name_en": "Subtotal Operating Profit before changes in working capital",
       "name_ar": "",
       "values": [
         {
@@ -120,7 +120,7 @@
       "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 5,
         "page": 4
       },
@@ -137,7 +137,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 6,
         "page": 4
       },
@@ -146,7 +146,7 @@
     },
     {
       "name_en": "Prepaid expenses and other debit balances",
-      "name_ar": "مصروفات مقدمة وأرصدة مدينة أخرى",
+      "name_ar": "مصروفات مقدمة وأرصدة مدینة أخرى",
       "values": [
         {
           "fiscal_year": 2024,
@@ -160,11 +160,11 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 7,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 7
     },
     {
@@ -183,11 +183,11 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 8,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 8
     },
     {
@@ -206,16 +206,16 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 9,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 9
     },
     {
       "name_en": "Trade payables",
-      "name_ar": "دائنون تجاريون",
+      "name_ar": "دائنون تجاریون",
       "values": [
         {
           "fiscal_year": 2024,
@@ -229,7 +229,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 10,
         "page": 4
       },
@@ -237,8 +237,8 @@
       "order": 10
     },
     {
-      "name_en": "Accrued income",
-      "name_ar": "إيرادات مستحقة",
+      "name_en": "Accrued revenue",
+      "name_ar": "إیرادات مستحقة",
       "values": [
         {
           "fiscal_year": 2024,
@@ -252,7 +252,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 11,
         "page": 4
       },
@@ -275,15 +275,15 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 12,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 12
     },
     {
-      "name_en": "Net cash generated from (used in) operating activities",
+      "name_en": "Net cash (used in) from operating activities",
       "name_ar": "صافي النقد (المستخدم في) الناتج من الأنشطة التشغيلية",
       "values": [
         {
@@ -294,15 +294,15 @@
       ],
       "level": 1,
       "parent_index": null,
-      "is_total": false,
-      "is_subtotal": true,
+      "is_total": true,
+      "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 13,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 13
     },
     {
@@ -315,7 +315,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 14,
         "page": 4
       },
@@ -338,11 +338,11 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 15,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 15
     },
     {
@@ -361,7 +361,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 16,
         "page": 4
       },
@@ -369,7 +369,7 @@
       "order": 16
     },
     {
-      "name_en": "Net cash generated from (used in) investing activities",
+      "name_en": "Net cash from (used in) investing activities",
       "name_ar": "صافي النقد الناتج من (المستخدم في) الأنشطة الاستثمارية",
       "values": [
         {
@@ -380,15 +380,15 @@
       ],
       "level": 1,
       "parent_index": null,
-      "is_total": false,
-      "is_subtotal": true,
+      "is_total": true,
+      "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 17,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 17
     },
     {
@@ -401,7 +401,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 18,
         "page": 4
       },
@@ -424,15 +424,15 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 19,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 19
     },
     {
-      "name_en": "Net cash generated from financing activities",
+      "name_en": "Net cash from financing activities",
       "name_ar": "صافي النقد الناتج من الأنشطة التمويلية",
       "values": [
         {
@@ -443,15 +443,15 @@
       ],
       "level": 1,
       "parent_index": null,
-      "is_total": false,
-      "is_subtotal": true,
+      "is_total": true,
+      "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 20,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 20
     },
     {
@@ -470,16 +470,16 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 21,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 21
     },
     {
       "name_en": "Cash and cash equivalents at the beginning of the year",
-      "name_ar": "النقد وما في حكمه في بداية السنة",
+      "name_ar": "النقد وما في حكمه في بدایة السنة",
       "values": [
         {
           "fiscal_year": 2024,
@@ -493,11 +493,11 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 22,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 22
     },
     {
@@ -516,22 +516,36 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p4_t1",
         "row_index": 23,
         "page": 4
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 23
     }
   ],
   "totals": {
-    "total_assets": null,
-    "total_liabilities": null,
-    "total_equity": null
+    "net_cash_operating": {
+      "2024": 38600290
+    },
+    "net_cash_investing": {
+      "2024": -51949
+    },
+    "net_cash_financing": {
+      "2024": 680000
+    },
+    "net_change_cash": {
+      "2024": 39228341
+    },
+    "cash_end_period": {
+      "2024": 39500362
+    }
   },
   "extraction_notes": [
-    "Row 5 in the table was empty but contained a subtotal value; it was named 'Subtotal before changes in working capital' based on context.",
-    "Items with '-' in the source were extracted as null values."
+    "Extracted 2024 data from the provided table.",
+    "Dashes '-' were treated as null values.",
+    "Negative values in parentheses were converted to negative numbers.",
+    "Hierarchy levels assigned based on statement structure and subtotals."
   ],
-  "confidence": 0.94
+  "confidence": 0.96
 }

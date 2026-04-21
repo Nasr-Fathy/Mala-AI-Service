@@ -31,6 +31,11 @@ class Settings(BaseSettings):
     # --- LLM Provider ---
     LLM_PROVIDER: Literal["vertex", "openai", "google_studio"] = "vertex"
 
+    # --- Dynamic LLM Routing ---
+    DEFAULT_LLM_PROVIDER: str = ""   # "" means fall back to LLM_PROVIDER
+    DEFAULT_LLM_MODEL: str = ""      # "" means use the provider-specific default model
+    TASK_LLM_OVERRIDES: str = "{}"   # JSON: '{"extraction":{"provider":"vertex","model":"gemini-2.5-pro"}}'
+
     # --- Vertex AI ---
     GOOGLE_CLOUD_PROJECT_ID: str = ""
     VERTEX_LOCATION: str = "us-central1"

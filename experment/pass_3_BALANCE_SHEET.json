@@ -8,43 +8,43 @@
         {
           "fiscal_year": 2024,
           "amount": 39500362,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": null,
+      "parent_index": 2,
       "is_total": false,
       "is_subtotal": false,
       "note_number": "5",
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 0,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 0
     },
     {
       "name_en": "Prepaid expenses and other debit balances",
-      "name_ar": "مصروفات مقدمة وأرصدة مدينة أخرى",
+      "name_ar": "مصروفات مقدمة وأرصدة مدینة أخرى",
       "values": [
         {
           "fiscal_year": 2024,
           "amount": 650000,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": null,
+      "parent_index": 2,
       "is_total": false,
       "is_subtotal": false,
       "note_number": "6",
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 1,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 1
     },
     {
@@ -54,43 +54,37 @@
         {
           "fiscal_year": 2024,
           "amount": 40150362,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 1,
-      "parent_index": null,
-      "is_total": true,
-      "is_subtotal": false,
+      "parent_index": 6,
+      "is_total": false,
+      "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 2,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 2
     },
     {
       "name_en": "Non-current assets",
       "name_ar": "الموجودات غير المتداولة",
-      "values": [
-        {
-          "fiscal_year": 2024,
-          "amount": null,
-          "column_index": 2
-        }
-      ],
+      "values": [],
       "level": 1,
-      "parent_index": null,
+      "parent_index": 6,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 3,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 3
     },
     {
@@ -100,20 +94,20 @@
         {
           "fiscal_year": 2024,
           "amount": 51949,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": 3,
+      "parent_index": 5,
       "is_total": false,
       "is_subtotal": false,
       "note_number": "7",
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 4,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 4
     },
     {
@@ -123,20 +117,20 @@
         {
           "fiscal_year": 2024,
           "amount": 51949,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 1,
-      "parent_index": null,
-      "is_total": true,
-      "is_subtotal": false,
+      "parent_index": 6,
+      "is_total": false,
+      "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 5,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 5
     },
     {
@@ -146,7 +140,7 @@
         {
           "fiscal_year": 2024,
           "amount": 40202311,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 0,
@@ -155,57 +149,45 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 6,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.98,
       "order": 6
     },
     {
-      "name_en": "Liabilities and equity",
+      "name_en": "Liabilities and Equity",
       "name_ar": "المطلوبات و حقوق الملكية",
-      "values": [
-        {
-          "fiscal_year": 2024,
-          "amount": null,
-          "column_index": 2
-        }
-      ],
+      "values": [],
       "level": 0,
       "parent_index": null,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 7,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 7
     },
     {
       "name_en": "Current liabilities",
       "name_ar": "المطلوبات المتداولة",
-      "values": [
-        {
-          "fiscal_year": 2024,
-          "amount": null,
-          "column_index": 2
-        }
-      ],
+      "values": [],
       "level": 1,
-      "parent_index": 7,
+      "parent_index": 15,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 8,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 8
     },
     {
@@ -215,20 +197,20 @@
         {
           "fiscal_year": 2024,
           "amount": 200025,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": 8,
+      "parent_index": 11,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 9,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 9
     },
     {
@@ -238,20 +220,20 @@
         {
           "fiscal_year": 2024,
           "amount": 900450,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": 8,
+      "parent_index": 11,
       "is_total": false,
       "is_subtotal": false,
       "note_number": "8",
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 10,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 10
     },
     {
@@ -261,62 +243,56 @@
         {
           "fiscal_year": 2024,
           "amount": 1100475,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 1,
-      "parent_index": null,
-      "is_total": true,
-      "is_subtotal": false,
+      "parent_index": 15,
+      "is_total": false,
+      "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 11,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 11
     },
     {
       "name_en": "Non-current liabilities",
       "name_ar": "المطلوبات غير المتداولة",
-      "values": [
-        {
-          "fiscal_year": 2024,
-          "amount": null,
-          "column_index": 2
-        }
-      ],
+      "values": [],
       "level": 1,
-      "parent_index": 7,
+      "parent_index": 15,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 12,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 12
     },
     {
-      "name_en": "Provision for employees' end-of-service benefits",
-      "name_ar": "مخصص مكافأة نهاية الخدمة للموظفين",
+      "name_en": "Provision for employees' end of service benefits",
+      "name_ar": "مخصص مكافأة نهایة الخدمة للموظفین",
       "values": [
         {
           "fiscal_year": 2024,
           "amount": null,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": 12,
+      "parent_index": 14,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 13,
         "page": 1
       },
@@ -330,16 +306,16 @@
         {
           "fiscal_year": 2024,
           "amount": null,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 1,
-      "parent_index": null,
-      "is_total": true,
-      "is_subtotal": false,
+      "parent_index": 15,
+      "is_total": false,
+      "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 14,
         "page": 1
       },
@@ -353,43 +329,37 @@
         {
           "fiscal_year": 2024,
           "amount": 1100475,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 0,
-      "parent_index": null,
+      "parent_index": 20,
       "is_total": true,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 15,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.98,
       "order": 15
     },
     {
       "name_en": "Equity",
       "name_ar": "حقوق الملكية",
-      "values": [
-        {
-          "fiscal_year": 2024,
-          "amount": null,
-          "column_index": 2
-        }
-      ],
+      "values": [],
       "level": 1,
-      "parent_index": 7,
+      "parent_index": 20,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 16,
         "page": 1
       },
-      "confidence": 0.95,
+      "confidence": 0.9,
       "order": 16
     },
     {
@@ -399,43 +369,43 @@
         {
           "fiscal_year": 2024,
           "amount": 5000,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": 16,
+      "parent_index": 19,
       "is_total": false,
       "is_subtotal": false,
       "note_number": "9",
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 17,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 17
     },
     {
-      "name_en": "Retained earnings / (accumulated losses)",
-      "name_ar": "أرباح مبقاه/ (خسائر متراكمة)",
+      "name_en": "Retained earnings / (Accumulated losses)",
+      "name_ar": "أرباح مبقاه / (خسائر متراكمة )",
       "values": [
         {
           "fiscal_year": 2024,
           "amount": 39096836,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 2,
-      "parent_index": 16,
+      "parent_index": 19,
       "is_total": false,
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 18,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 18
     },
     {
@@ -445,20 +415,20 @@
         {
           "fiscal_year": 2024,
           "amount": 39101836,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 1,
-      "parent_index": null,
-      "is_total": true,
-      "is_subtotal": false,
+      "parent_index": 20,
+      "is_total": false,
+      "is_subtotal": true,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 19,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.95,
       "order": 19
     },
     {
@@ -468,7 +438,7 @@
         {
           "fiscal_year": 2024,
           "amount": 40202311,
-          "column_index": 2
+          "column_index": 0
         }
       ],
       "level": 0,
@@ -477,11 +447,11 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p1_t1",
         "row_index": 20,
         "page": 1
       },
-      "confidence": 0.99,
+      "confidence": 0.98,
       "order": 20
     }
   ],
@@ -497,8 +467,9 @@
     }
   },
   "extraction_notes": [
-    "Non-current liabilities and related provision were listed with null values in the source table.",
-    "Hierarchy levels assigned based on section headers and total labels."
+    "Arabic numbers converted to standard integers",
+    "Dashes (-) treated as null values",
+    "English names translated from Arabic context"
   ],
-  "confidence": 0.98
+  "confidence": 0.96
 }

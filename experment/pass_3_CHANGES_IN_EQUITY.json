@@ -2,8 +2,8 @@
   "statement_type": "CHANGES_IN_EQUITY",
   "line_items": [
     {
-      "name_en": "Balance as at 1 January 2024",
-      "name_ar": "الرصيد كما في ١ يناير ٢٠٢٤م",
+      "name_en": "Balance as at January 1, 2024",
+      "name_ar": "الرصید كما في ١ ینایر ٢٠٢٤م",
       "values": [
         {
           "fiscal_year": 2024,
@@ -32,7 +32,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p3_t1",
         "row_index": 0,
         "page": 3
       },
@@ -70,7 +70,7 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p3_t1",
         "row_index": 1,
         "page": 3
       },
@@ -78,8 +78,8 @@
       "order": 2
     },
     {
-      "name_en": "Balance as at 31 December 2024",
-      "name_ar": "الرصيد كما في ٣١ ديسمبر ٢٠٢٤م",
+      "name_en": "Balance as at December 31, 2024",
+      "name_ar": "الرصید كما في ٣١ديسمبر ٢٠٢٤م",
       "values": [
         {
           "fiscal_year": 2024,
@@ -108,24 +108,23 @@
       "is_subtotal": false,
       "note_number": null,
       "source": {
-        "table_id": "t1",
+        "table_id": "p3_t1",
         "row_index": 2,
         "page": 3
       },
-      "confidence": 0.95,
+      "confidence": 0.98,
       "order": 3
     }
   ],
   "totals": {
-    "total_assets": {},
-    "total_liabilities": {},
     "total_equity": {
       "2024": 39101836
     }
   },
   "extraction_notes": [
-    "Fiscal year 2024 deduced from statement title and row text.",
-    "Columns represent equity components: Share Capital (0), Statutory Reserve (1), Retained Earnings (2), and Total (3)."
+    "Extracted from Statement of Changes in Equity",
+    "Columns represent: Capital, Statutory Reserve, Retained Earnings, and Total",
+    "Arabic names translated to English for name_en field"
   ],
-  "confidence": 0.95
+  "confidence": 0.96
 }

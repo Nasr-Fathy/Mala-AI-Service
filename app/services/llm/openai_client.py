@@ -77,6 +77,7 @@ class OpenAILLMClient(BaseLLMClient):
         messages: list[dict[str, Any]],
         config: GenerationConfig,
         label: str,
+        model_name: str | None = None,
     ) -> LLMResponse:
         self.total_calls += 1
         client = self._get_client()
@@ -84,8 +85,10 @@ class OpenAILLMClient(BaseLLMClient):
         last_exc: BaseException | None = None
         start = time.time()
 
+        resolved_model = model_name or self._settings.OPENAI_MODEL
+
         kwargs: dict[str, Any] = {
-            "model": self._settings.OPENAI_MODEL,
+            "model": resolved_model,
             "messages": messages,
             "max_tokens": config.max_output_tokens,
             "temperature": config.temperature,
@@ -105,11 +108,11 @@ class OpenAILLMClient(BaseLLMClient):
 
                 self.successful_calls += 1
                 elapsed = int((time.time() - start) * 1000)
-                model_name = getattr(response, "model", None) or self._settings.OPENAI_MODEL
+                model_name_resp = getattr(response, "model", None) or resolved_model
 
                 out = finalize_llm_response(
                     provider="openai",
-                    model_name=model_name,
+                    model_name=model_name_resp,
                     raw_vendor_response=response,
                     content=parsed,
                     raw_text=raw_text,
@@ -229,6 +232,7 @@ class OpenAILLMClient(BaseLLMClient):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         cfg = config or GenerationConfig(
             max_output_tokens=self._settings.OPENAI_MAX_OUTPUT_TOKENS,
@@ -236,7 +240,7 @@ class OpenAILLMClient(BaseLLMClient):
         )
         user_text = f"{prompt}\n\nContent to process:\n{content}" if content else prompt
         messages = [{"role": "user", "content": user_text}]
-        return await self._call_with_retry(messages, cfg, label)
+        return await self._call_with_retry(messages, cfg, label, model_name=model_name)
 
     @traceable(run_type="llm", name="llm_generate_pdf", process_inputs=filter_trace_inputs)
     async def generate_from_pdf(
@@ -247,6 +251,7 @@ class OpenAILLMClient(BaseLLMClient):
         config: GenerationConfig | None = None,
         label: str = "",
         response_schema: dict[str, Any] | None = None,
+        model_name: str | None = None,
     ) -> LLMResponse:
         cfg = config or GenerationConfig(
             max_output_tokens=self._settings.OPENAI_MAX_OUTPUT_TOKENS,
@@ -268,7 +273,7 @@ class OpenAILLMClient(BaseLLMClient):
                 ],
             }
         ]
-        return await self._call_with_retry(messages, cfg, label)
+        return await self._call_with_retry(messages, cfg, label, model_name=model_name)
 
     async def health_check(self) -> dict[str, Any]:
         try:

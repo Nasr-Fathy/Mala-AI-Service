@@ -228,15 +228,16 @@ class FinancialMapperService(BaseMapperService):
             ensure_ascii=False,
             indent=2,
         )
+        print(content)
 
         prompt = get_statement_prompt(stype)
-        config = GenerationConfig(max_output_tokens=32000,temperature=0.0, response_json=True, thinking_level="MEDIUM")
+        config = GenerationConfig(max_output_tokens=32000,thinking_budget=3000,temperature=0.0, response_json=True, thinking_level="LOW")
 
         needs_image = self._needs_image(
             stype, stmt_info.get("columns", []), ocr_data, start, end, raw_tables
         )
-
-        if needs_image and pdf_bytes:
+        a=False
+        if needs_image and pdf_bytes and a:
             page_numbers = list(range(start, end + 1))
             combined_prompt = f"{prompt}\n\nStructured data from OCR:\n{content}"
             try:
@@ -258,6 +259,7 @@ class FinancialMapperService(BaseMapperService):
                     content=content,
                     config=config,
                     label=f"pass3_{stype}",
+                    
                 )
         else:
             resp = await self._llm.generate(

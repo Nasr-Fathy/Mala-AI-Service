@@ -21,7 +21,7 @@ from app.pipeline.registry import StepRegistry
 from app.pipeline.steps.capture_step import CaptureStep
 from app.pipeline.steps.mapping_step import MappingStep
 from app.services.capture.capture_service import CaptureService
-from app.services.llm.factory import create_llm_client
+from app.services.llm.router import LLMRouter
 from app.services.mapping.category_mapper import CategoryMapper
 from app.services.mapping.financial_mapper import FinancialMapperService
 
@@ -52,8 +52,8 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     )
 
     # -- LLM client --
-    llm_client = create_llm_client(settings)
-    app.state.llm_client = llm_client
+    llm_router = LLMRouter(settings)
+    app.state.llm_client = llm_router
 
     # -- Category mapper --
     cat_mapper = CategoryMapper(
@@ -66,10 +66,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.category_mapper = cat_mapper
 
     # -- Services --
-    capture_service = CaptureService(llm_client)
+    capture_service = CaptureService(llm_router)
     app.state.capture_service = capture_service
 
-    mapper_service = FinancialMapperService(llm_client, cat_mapper)
+    mapper_service = FinancialMapperService(llm_router, cat_mapper)
     app.state.mapper_service = mapper_service
 
     # -- Pipeline --

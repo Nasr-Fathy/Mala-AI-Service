@@ -1,6 +1,6 @@
 {
   "company": {
-    "name_en": "Sour Al Najah General Contracting Establishment",
+    "name_en": "Sour Al-Najah Establishment for General Contracting",
     "name_ar": "مؤسسة سور النجاح للمقاولات العامة",
     "legal_form": "Establishment",
     "registration_number": null
@@ -32,8 +32,8 @@
     "audit_date": null
   },
   "document_info": {
-    "title_en": "Financial Statements for the year ended December 31, 2024",
-    "title_ar": "القوائم المالية للسنة المنتهية في ٣١ ديسمبر ٢٠٢٤م",
+    "title_en": "Financial Statements",
+    "title_ar": "القوائم المالية",
     "detected_language": "ar"
   },
   "confidence": {
