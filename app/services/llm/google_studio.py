@@ -17,6 +17,7 @@ from app.core.exceptions import (
     LLMResponseParseError,
     LLMRetryExhaustedError,
 )
+from app.services.llm.json_parser import parse_llm_json
 from app.core.logging import get_logger
 from app.core.tracing import filter_trace_inputs
 from app.services.llm.base import BaseLLMClient, GenerationConfig, LLMResponse
@@ -79,33 +80,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
         jitter = random.uniform(0, base * s.LLM_JITTER_FACTOR)
         return base + jitter
 
-    @staticmethod
-    def _parse_json(raw: str) -> dict[str, Any]:
-        text = raw.strip()
-        if text.startswith("```json"):
-            text = text[7:]
-        if text.startswith("```"):
-            text = text[3:]
-        if text.endswith("```"):
-            text = text[:-3]
-        text = text.strip()
-
-        try:
-            return json.loads(text)
-        except json.JSONDecodeError as e:
-            start = max(0, e.pos - 1000)
-            end = min(len(text), e.pos + 1000)
-            error_context = text[start:end]
-
-            logger.error(
-                "llm_json_parse_failed",
-                error=str(e),
-                error_line=e.lineno,
-                error_column=e.colno,
-                error_pos=e.pos,
-                error_context=error_context,
-            )
-            raise LLMResponseParseError(f"Invalid JSON from LLM: {e}") from e   # ------------------------------------------------------------------
+    # ------------------------------------------------------------------
     # Core generation loop (runs model.generate_content in a thread)
     # ------------------------------------------------------------------
 
@@ -144,7 +119,7 @@ class GoogleStudioLLMClient(BaseLLMClient):
                     raise LLMError("No response candidates from Gemini")
 
                 raw_text = response.candidates[0].content.parts[0].text
-                parsed = self._parse_json(raw_text)
+                parsed = parse_llm_json(raw_text)
 
                 self.successful_calls += 1
                 elapsed = int((time.time() - start) * 1000)

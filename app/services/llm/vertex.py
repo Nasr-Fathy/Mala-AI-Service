@@ -19,6 +19,7 @@ from app.core.exceptions import (
     LLMResponseParseError,
     LLMRetryExhaustedError,
 )
+from app.services.llm.json_parser import parse_llm_json
 from app.core.logging import get_logger
 from app.core.tracing import filter_trace_inputs
 from app.services.capture.capture_service import CaptureService
@@ -158,42 +159,6 @@ class VertexLLMClient(BaseLLMClient):
             return exc.code == _INVALID_ARGUMENT_CODE
         return False
 
-    @staticmethod
-    def _parse_json(raw: str) -> dict[str, Any]:
-        text = raw.strip()
-
-        if text.startswith("```json"):
-            text = text[7:]
-        if text.startswith("```"):
-            text = text[3:]
-        if text.endswith("```"):
-            text = text[:-3]
-
-        text = text.strip()
-
-        # If the model returned an object inside a list: [ {...} ]
-        if text.startswith("[") and text.endswith("]"):
-            inner = text[1:-1].strip()
-            if inner.startswith("{") and inner.endswith("}"):
-                text = inner
-
-        try:
-            return json.loads(text)
-        except json.JSONDecodeError as e:
-            start = max(0, e.pos - 1000)
-            end = min(len(text), e.pos + 1000)
-            error_context = text[start:end]
-
-            logger.error(
-                "llm_json_parse_failed",
-                error=str(e),
-                error_line=e.lineno,
-                error_column=e.colno,
-                error_pos=e.pos,
-                error_context=error_context,
-            )
-            raise LLMResponseParseError(f"Invalid JSON from LLM: {e}") from e
-
     # ------------------------------------------------------------------
     # Core generation loop
     # ------------------------------------------------------------------
@@ -230,7 +195,7 @@ class VertexLLMClient(BaseLLMClient):
                 CaptureService._dump_raw_output("pass_10_metadata", raw_text)
                 logger.info("llm_response", raw_text=raw_text)
 
-                parsed = self._parse_json(raw_text)
+                parsed = parse_llm_json(raw_text)
 
                 self.successful_calls += 1
                 elapsed = int((time.time() - start) * 1000)
